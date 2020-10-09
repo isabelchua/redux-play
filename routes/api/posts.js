@@ -104,28 +104,28 @@ router.delete("/:id", auth, async (req, res) => {
 // @route    PUT api/posts/like/:id
 // @desc     Like a post
 // @access   Private
-router.put("/like/:id", auth, async (req, res) => {
-	try {
-		const post = await Post.findById(req.params.id);
+// router.put("/like/:id", auth, async (req, res) => {
+// 	try {
+// 		const post = await Post.findById(req.params.id);
 
-		// Check if the post has already been liked
-		if (
-			post.likes.filter(like => like.user.toString() === req.user.id)
-				.length > 0
-		) {
-			return res.status(400).json({ msg: "Post already liked" });
-		}
+// 		// Check if the post has already been liked
+// 		if (
+// 			post.likes.filter(like => like.user.toString() === req.user.id)
+// 				.length > 0
+// 		) {
+// 			return res.status(400).json({ msg: "Post already liked" });
+// 		}
 
-		post.likes.unshift({ user: req.user.id });
+// 		post.likes.unshift({ user: req.user.id });
 
-		await post.save();
+// 		await post.save();
 
-		res.json(post.likes);
-	} catch (err) {
-		console.error(err.message);
-		res.status(500).send("Server Error");
-	}
-});
+// 		res.json(post.likes);
+// 	} catch (err) {
+// 		console.error(err.message);
+// 		res.status(500).send("Server Error");
+// 	}
+// });
 
 // @route    PUT api/posts/like/shop:id/:id
 // @desc     Like a Review
@@ -240,7 +240,7 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 });
 
 // @route    POST api/posts/comment/:id
-// @desc     Comment on a post
+// @desc     Add a Review
 // @access   Private
 router.post(
 	"/comment/:id",
@@ -250,12 +250,21 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
 		}
+		//const { rating } = req.body;
+
+		// const postFields = {};
+
+		// if (rating) postFields.rating = rating;
 
 		try {
 			const user = await User.findById(req.user.id).select("-password");
 			const post = await Post.findById(req.params.id);
 
+			console.log(req.body.text);
+			console.log(req.body);
+
 			const newComment = {
+				rating: req.body.rating,
 				text: req.body.text,
 				name: user.name,
 				avatar: user.avatar,
