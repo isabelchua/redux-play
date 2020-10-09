@@ -127,10 +127,91 @@ router.put("/like/:id", auth, async (req, res) => {
 	}
 });
 
+// @route    PUT api/posts/like/shop:id/:id
+// @desc     Like a Review
+// @access   Private
+router.put("/like/:id/:review_id", auth, async (req, res) => {
+	try {
+		const post = await Post.findById(req.params.id);
+		// Pull out Review
+		const comment = post.comments.find(
+			comment => comment.id === req.params.review_id
+		);
+
+		// Make sure Review exists
+		if (!comment) {
+			return res.status(404).json({ msg: "Review does not exist" });
+		}
+
+		// Check if the Review has already been liked
+
+		if (
+			comment.likes.filter(like => like.user.toString() === req.user.id)
+				.length > 0
+		) {
+			return res.status(400).json({ msg: "Post already liked" });
+		}
+		//console.log(comment.likes);
+		comment.likes.unshift({ user: req.user.id });
+		//console.log(comment.likes);
+
+		await post.save();
+		//res.json(post.likes);
+		res.json(comment.likes);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send("Server Error");
+	}
+});
+
+// @route    PUT api/posts/like/shop:id/:id
+// @desc     Unlike a Review
+// @access   Private
+router.put("/unlike/:id/:review_id", auth, async (req, res) => {
+	try {
+		const post = await Post.findById(req.params.id);
+		// Pull out Review
+		const comment = post.comments.find(
+			comment => comment.id === req.params.review_id
+		);
+
+		// Make sure Review exists
+		if (!comment) {
+			return res.status(404).json({ msg: "Review does not exist" });
+		}
+
+		// Check if the Review has already been liked
+		if (
+			comment.likes.filter(like => like.user.toString() === req.user.id)
+				.length === 0
+		) {
+			return res.status(400).json({ msg: "Post already liked" });
+		}
+
+		// Get remove index
+		const removeIndex = comment.likes
+			.map(like => like.user.toString())
+			.indexOf(req.user.id);
+
+		//console.log(comment.likes);
+
+		comment.likes.splice(removeIndex, 1);
+
+		//console.log(comment.likes);
+
+		await post.save();
+		//res.json(post.likes);
+		res.json(comment.likes);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send("Server Error");
+	}
+});
+
 // @route    PUT api/posts/unlike/:id
 // @desc     Like a post
 // @access   Private
-router.put("/unlike/:id", auth, async (req, res) => {
+router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 	try {
 		const post = await Post.findById(req.params.id);
 
@@ -207,7 +288,7 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
 
 		// Make sure comment exists
 		if (!comment) {
-			return res.status(404).json({ msg: "Comment does not exist" });
+			return res.status(404).json({ msg: "Review does not exist" });
 		}
 
 		// Check user
