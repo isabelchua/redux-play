@@ -46,8 +46,7 @@ router.post("/", auth, async (req, res) => {
 		youtube,
 		facebook,
 		twitter,
-		instagram,
-		linkedin
+		instagram
 	} = req.body;
 
 	// Build profile object
@@ -63,7 +62,6 @@ router.post("/", auth, async (req, res) => {
 	if (youtube) profileFields.social.youtube = youtube;
 	if (twitter) profileFields.social.twitter = twitter;
 	if (facebook) profileFields.social.facebook = facebook;
-	if (linkedin) profileFields.social.linkedin = linkedin;
 	if (instagram) profileFields.social.instagram = instagram;
 
 	try {

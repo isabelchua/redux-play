@@ -40,6 +40,9 @@ const PostSchema = new Schema({
 			avatar: {
 				type: String
 			},
+			rating: {
+				type: Number
+			},
 			likes: [
 				{
 					user: {
