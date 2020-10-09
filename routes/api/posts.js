@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
+const { removeLike } = require("../../client/src/actions/post");
 const auth = require("../../middleware/auth");
 
 const Post = require("../../models/Post");
@@ -268,7 +269,8 @@ router.post(
 				text: req.body.text,
 				name: user.name,
 				avatar: user.avatar,
-				user: req.user.id
+				user: req.user.id,
+				rating: req.body.rating
 			};
 
 			post.comments.unshift(newComment);
