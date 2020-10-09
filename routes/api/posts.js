@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
+const { removeLike } = require("../../client/src/actions/post");
 const auth = require("../../middleware/auth");
 
 const Post = require("../../models/Post");
@@ -240,7 +241,7 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 });
 
 // @route    POST api/posts/comment/:id
-// @desc     Comment on a post
+// @desc     Reivew on Shop
 // @access   Private
 router.post(
 	"/comment/:id",
@@ -259,7 +260,8 @@ router.post(
 				text: req.body.text,
 				name: user.name,
 				avatar: user.avatar,
-				user: req.user.id
+				user: req.user.id,
+				rating: req.body.rating
 			};
 
 			post.comments.unshift(newComment);
