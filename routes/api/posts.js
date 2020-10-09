@@ -261,16 +261,15 @@ router.post(
 			const user = await User.findById(req.user.id).select("-password");
 			const post = await Post.findById(req.params.id);
 
-			console.log(req.body.text);
-			console.log(req.body);
+			//console.log(req.body.text);
+			//console.log(req.body);
 
 			const newComment = {
-				rating: req.body.rating,
+				//rating: req.body.rating,
 				text: req.body.text,
 				name: user.name,
 				avatar: user.avatar,
 				user: req.user.id,
-				rating: req.body.rating
 			};
 
 			post.comments.unshift(newComment);
