@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
-const { removeLike } = require("../../client/src/actions/post");
+// const { removeLike } = require("../../client/src/actions/post");
 const auth = require("../../middleware/auth");
 
 const Post = require("../../models/Post");
