@@ -9,7 +9,7 @@ const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
 // @route    POST api/posts
-// @desc     Create a post
+// @desc     Add a Shop
 // @access   Private
 router.post(
 	"/",
@@ -25,6 +25,10 @@ router.post(
 
 			const newPost = new Post({
 				text: req.body.text,
+				address: req.body.address,
+				description: req.body.description,
+				phone: req.body.phone,
+				short: req.body.short,
 				name: user.name,
 				avatar: user.avatar,
 				user: req.user.id

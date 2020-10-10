@@ -16,6 +16,21 @@ const PostSchema = new Schema({
 	avatar: {
 		type: String
 	},
+	phone: {
+		type: String
+	},
+	description: {
+		type: String
+	},
+	image: {
+		type: String
+	},
+	address: {
+		type: String
+	},
+	short: {
+		type: String
+	},
 	likes: [
 		{
 			user: {
