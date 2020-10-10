@@ -1,0 +1,40 @@
+$bgcolor: #f0f5f1;
+$primary-color: #90ada3;
+$secondary-color: #789088;
+$main-color: #607e74;
+$sub-color: #90ada3;
+$curve: 15px;
+$gap: 25px;
+$gray: rgb(116, 116, 116);
+$lightgray: rgb(214, 214, 214);
+
+// set text color base on bg
+@function set-text-color($color) {
+	@if (lightness($color) > 70) {
+		@return #333;
+	} @else {
+		@return #fff;
+	}
+}
+
+//set background & text color
+@mixin set-background($color) {
+	background-color: $color;
+	color: set-text-color($color);
+}
+
+::placeholder {
+	/* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: $lightgray;
+	opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: $lightgray;
+}
+
+::-ms-input-placeholder {
+	/* Microsoft Edge */
+	color: $lightgray;
+}
