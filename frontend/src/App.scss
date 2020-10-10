@@ -239,12 +239,12 @@ a:hover {
 			margin: 10px 0;
 			border-radius: $curve;
 
-			.user-profile-post {
+			.user-profile-post a {
 				display: flex;
 				align-items: center;
 			}
 
-			.avatar {
+			.avatar a {
 				height: 50px;
 				width: 50px;
 			}
@@ -254,13 +254,44 @@ a:hover {
 				flex-direction: column;
 
 				margin-left: 20px;
-				p {
+				p a {
 					margin: 0;
 					line-height: 110%;
 				}
 			}
 
-			.post-content {
+			.review-top {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.review-upper-right {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+			}
+
+			.review-bottom {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				.review-bottom-right {
+					align-items: center;
+				}
+				.thumb {
+					background-color: transparent !important;
+					padding: 0px;
+					margin: 0 5px !important;
+					opacity: 0.7;
+					font-size: 2rem !important;
+				}
+
+				.thumb:hover {
+					opacity: 1;
+				}
+			}
+
+			.post-content a {
 				margin: 10px 0;
 				p {
 					margin: 25px 0;
@@ -284,6 +315,10 @@ a:hover {
 		width: 150px;
 		border-radius: $curve;
 	}
+}
+
+.space-right {
+	margin-right: 15px;
 }
 
 .row {
@@ -400,14 +435,6 @@ a:hover {
 	}
 }
 
-.thumb {
-	background-color: transparent !important;
-	padding: 5px;
-	margin: 0 10px;
-
-	font-size: 2rem !important;
-}
-
 .red {
 	color: #a13232;
 }
@@ -417,7 +444,10 @@ a:hover {
 }
 
 .delete {
-	color: #694646;
+	align-items: flex-end;
+	border: 1px solid #dac2c2;
+	background-color: transparent;
+	color: #9b5d5d;
 }
 
 .button-icon {
