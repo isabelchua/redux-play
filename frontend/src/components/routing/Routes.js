@@ -17,7 +17,7 @@ import AddShop from "../shop/AddShop";
 
 const Routes = () => {
 	return (
-		<section className="main-wrap">
+		<div className="main-wrap">
 			<Alert />
 			<Switch>
 				<Route exact path="/register" component={Register} />
@@ -37,7 +37,7 @@ const Routes = () => {
 				<Route exact path="/posts/:id" component={Post} />
 				<Route component={NotFound} />
 			</Switch>
-		</section>
+		</div>
 	);
 };
 

@@ -21,7 +21,7 @@ const Post = ({
 	return loading || post === null ? (
 		<Spinner />
 	) : (
-		<div className="main-wrap">
+		<>
 			<div className="col1">
 				<ShopBanner post={post} />
 			</div>
@@ -40,7 +40,7 @@ const Post = ({
 					))}
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

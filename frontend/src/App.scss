@@ -48,7 +48,7 @@ body {
 	div {
 		display: flex;
 		img {
-			width: 100px;
+			height: 60px;
 		}
 	}
 }
@@ -162,7 +162,7 @@ a:hover {
 }
 
 .main-wrap {
-	width: 1000px;
+	width: 1100px;
 	display: flex;
 	// align-items: center;
 	// justify-content: center;
@@ -171,7 +171,8 @@ a:hover {
 	.col1 {
 		background-color: white;
 		// height: 100vh;
-		width: 350px;
+		// flex-grow: 1;
+		width: 320px;
 		flex-direction: column;
 		margin-right: 40px;
 		padding: 20px 40px 40px 40px;
@@ -223,10 +224,10 @@ a:hover {
 
 	.col2 {
 		display: flex;
-		flex-grow: 1;
+		width: 750px;
+
 		flex-direction: column;
 		padding: 0px 0 0 0;
-		width: 100%;
 		min-height: 100vh;
 
 		.sort {
@@ -235,7 +236,7 @@ a:hover {
 
 		.post {
 			background-color: #fff;
-			padding: 30px;
+			padding: 20px 30px;
 			margin: 10px 0;
 			border-radius: $curve;
 
@@ -254,9 +255,10 @@ a:hover {
 				flex-direction: column;
 
 				margin-left: 20px;
-				p a {
+
+				p {
 					margin: 0;
-					line-height: 110%;
+					line-height: 130%;
 				}
 			}
 
@@ -274,20 +276,30 @@ a:hover {
 			.review-bottom {
 				display: flex;
 				justify-content: space-between;
-				align-items: center;
+				align-items: flex-end;
+				color: $main-color;
+
 				.review-bottom-right {
+					display: flex;
 					align-items: center;
 				}
+
 				.thumb {
 					background-color: transparent !important;
 					padding: 0px;
 					margin: 0 5px !important;
-					opacity: 0.7;
+					opacity: 0.6;
 					font-size: 2rem !important;
 				}
 
 				.thumb:hover {
 					opacity: 1;
+				}
+
+				.delete {
+					font-size: 1rem !important;
+					margin: 0 !important;
+					padding: 0px;
 				}
 			}
 
@@ -444,10 +456,12 @@ a:hover {
 }
 
 .delete {
-	align-items: flex-end;
-	border: 1px solid #dac2c2;
 	background-color: transparent;
 	color: #9b5d5d;
+	margin: 0 auto;
+
+	// display: block;
+	// float: right;
 }
 
 .button-icon {

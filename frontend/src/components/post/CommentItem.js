@@ -42,39 +42,47 @@ const CommentItem = ({
 				<div className="review-bottom">
 					<div className="review-bottom-left">
 						{likes.length > 0 && (
-							<div>{likes.length} people found this review helpful</div>
+							<div>{likes.length} fellow found this review helpful</div>
 						)}{" "}
 					</div>
-					<div className="review-bottom-right">
-						<span className="space-right">Was this review helpful?</span>
 
-						<button
-							onClick={e => addLike(postId, _id)}
-							type="button"
-							className="btn thumb green"
-						>
-							<i className="fas fa-thumbs-up" />{" "}
-						</button>
-						<button
-							onClick={e => removeLike(postId, _id)}
-							type="button"
-							className="btn thumb red"
-						>
-							<i className="fas fa-thumbs-down" />
-						</button>
+					<div className="review-bottom-right">
+						{" "}
+						{auth.user && !auth.loading && user === auth.user._id ? (
+							<button
+								onClick={e => deleteComment(postId, _id)}
+								type="button"
+								className="btn delete"
+							>
+								<span className="space-right">Delete your post</span>{" "}
+								<i className="fas fa-times" />
+							</button>
+						) : (
+							<>
+								<span className="space-right">
+									Was this review helpful?
+								</span>
+
+								<button
+									onClick={e => addLike(postId, _id)}
+									type="button"
+									className="btn thumb green"
+								>
+									<i className="fas fa-thumbs-up" />{" "}
+								</button>
+								<button
+									onClick={e => removeLike(postId, _id)}
+									type="button"
+									className="btn thumb red"
+								>
+									<i className="fas fa-thumbs-down" />
+								</button>
+							</>
+						)}
 					</div>
 				</div>
 			</div>
-			{auth.user && !auth.loading && user === auth.user._id && (
-				<button
-					onClick={e => deleteComment(postId, _id)}
-					type="button"
-					className="btn thumb delete"
-				>
-					<span className="space-right">Delete this Review</span>{" "}
-					<i className="fas fa-times" />
-				</button>
-			)}
+			<div className="bottom-delete"></div>
 		</div>
 	);
 };
