@@ -400,6 +400,26 @@ a:hover {
 	}
 }
 
+.thumb {
+	background-color: transparent !important;
+	padding: 5px;
+	margin: 0 10px;
+
+	font-size: 2rem !important;
+}
+
+.red {
+	color: #a13232;
+}
+
+.green {
+	color: #40792a;
+}
+
+.delete {
+	color: #694646;
+}
+
 .button-icon {
 	border-radius: 30px;
 	display: flex;

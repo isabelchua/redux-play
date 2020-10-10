@@ -29,28 +29,30 @@ const CommentItem = ({
 					Posted on <Moment format="MM/DD/YYYY">{date}</Moment>
 				</p>
 				<p className="my-1">{text}</p>
+				<span>{likes.length > 0 && <span>{likes.length} people found this review helpful</span>} </span>
 
+				<div>was this review helpful?
 				<button
 					onClick={e => addLike(postId, _id)}
 					type="button"
-					className="btn btn-light"
+					className="btn thumb green"
 				>
 					<i className="fas fa-thumbs-up" />{" "}
-					<span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+					
 				</button>
 				<button
 					onClick={e => removeLike(postId, _id)}
 					type="button"
-					className="btn btn-light"
+					className="btn thumb red"
 				>
 					<i className="fas fa-thumbs-down" />
 				</button>
-
+	</div>
 				{auth.user && !auth.loading && user === auth.user._id && (
 					<button
 						onClick={e => deleteComment(postId, _id)}
 						type="button"
-						className="btn btn-danger"
+						className="btn thumb delete"
 					>
 						<i className="fas fa-times"></i>
 					</button>
