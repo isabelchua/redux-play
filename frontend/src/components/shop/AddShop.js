@@ -1,12 +1,12 @@
 import React from "react";
-import PostForm from "./PostForm";
+import ShopForm from "./ShopForm";
 
 const AddShop = () => {
 	return (
-		<div>
-			Add a Shop
-			<PostForm />
-		</div>
+		<>
+			<h3>Add a Shop</h3>
+			<ShopForm />
+		</>
 	);
 };
 

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/post";
 
-const PostForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
+const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 	const [shop, setShop] = useState({
 		text: '',
 		description: '',
@@ -21,7 +21,7 @@ const PostForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 	return (
 		<Fragment>
 			{isAuthenticated && (
-				<div className="form-body">
+				<div className="post-form">
 					<form
 						className="form"
 						onSubmit={e => {
@@ -72,7 +72,7 @@ const PostForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 	);
 };
 
-PostForm.propTypes = {
+ShopForm.propTypes = {
 	addPost: PropTypes.func.isRequired
 };
 
@@ -80,4 +80,4 @@ const mapStateToProps = state => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps, { addPost })(PostForm);
+export default connect(mapStateToProps, { addPost })(ShopForm);

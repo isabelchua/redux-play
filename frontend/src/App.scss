@@ -11,10 +11,6 @@
 	font-family: "Roboto", sans-serif;
 }
 
-#root{
-	width: auto;
-}
-
 html {
 	height: 100%;
 }
@@ -107,22 +103,17 @@ a:hover {
 	}
 }
 
-.form-body {
-	background-color: #fff;
-	padding: 20px;
-	width: 100%;
-	border-radius: $curve;
-	text-align: center;
-}
 
 .form {
+	padding: 0 30%;
+
 	input {
 		padding: 5px 15px;
 		border-radius: 20px;
 		display: block;
-		width: 60%;
+		width: 100%;
 		border: 1px solid #ccc;
-		margin: 10px auto;
+		margin: 10px 0px;
 		font-size: 1.1rem;
 	}
 
@@ -133,26 +124,14 @@ a:hover {
 	}
 }
 
-.home-wrap {
-	width: 1000px;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-
-	.logo-home {
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-	}
 
 	.home-card {
 		display: flex;
 		width: 100%;
 		flex-wrap: wrap;
 		justify-content: space-between;
-	}
 
-	.shop-card {
+		.shop-card {
 		display: flex;
 		margin: 10px;
 		width: 300px;
@@ -170,10 +149,27 @@ a:hover {
 			border-radius: $curve;
 		}
 	}
+
+	.date {
+		font-size: .8rem;
+		color: $secondary-color;
+	}
+	}
+
+	
+.page-wrap {
+	width: $page-width;
+	background-color: #fff;
+	padding: 30px 30px 70px;
+	border-radius: $curve;
+	text-align: center;
+
+	min-height: 80vh;
+	margin-bottom: 20px;
 }
 
 .main-wrap {
-	width: 1100px;
+	width: $page-width;
 	display: flex;
 	// align-items: center;
 	// justify-content: center;

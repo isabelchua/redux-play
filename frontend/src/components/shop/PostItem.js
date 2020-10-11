@@ -10,23 +10,23 @@ const PostItem = ({
 	removeLike,
 	deletePost,
 	auth,
-	post: { _id, text, name, avatar, user, likes, comments, date },
-	showActions
+	post: { _id, text, name, avatar, user, likes, comments, date, address }
 }) => {
 	return (
+		<Link to={`/posts/${_id}`}  className="shop-card">
 		<div className="card">
-			<p className="my-1">{text}</p>
-			<p className="post-date">
-				Posted on <Moment format="MM/DD/YYYY">{date}</Moment>
-			</p>
-			{showActions && (
-				<Fragment>
-					<Link to={`/posts/${_id}`} className="btn btn-primary">
-						{comments.length > 0 && (
-							<span className="comment-count">{comments.length}</span>
-						)}{" "}
-						Reviews
-					</Link>
+			<h3>{text}</h3>
+			
+			<p>{address && address}</p>
+				
+					<span className="comment-count">
+						{comments.length > 1 
+						? comments.length + ' Reviews' :
+						comments.length === 1 ?
+						'1 Review' 
+						:  ('No Reviews')}
+						</span>
+					
 					{auth.user && !auth.loading && user === auth.user._id && (
 						<button
 							onClick={e => deletePost(_id)}
@@ -36,13 +36,12 @@ const PostItem = ({
 							<i className="fas fa-times" />
 						</button>
 					)}
-				</Fragment>
-			)}
+				<p className="date">
+				Added on <Moment format="MM/DD/YYYY">{date}</Moment>
+			</p>
 		</div>
+		</Link>
 	);
-};
-PostItem.defaultProps = {
-	showActions: true
 };
 
 PostItem.propTypes = {

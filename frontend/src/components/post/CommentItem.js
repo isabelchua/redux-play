@@ -23,7 +23,7 @@ const CommentItem = ({
 							<strong>
 								<p>{name}</p>
 							</strong>
-							{/* <p>{location}</p> */}
+							{/* <p>{location && location}</p> */}
 							<p>San Francisco</p>
 						</div>
 					</Link>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import Register from "../auth/Register";
-import Login from "../auth/Login";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
 import Alert from "../layout/Alert";
 import Dashboard from "../dashboard/Dashboard";
 import CreateProfile from "../profile-forms/CreateProfile";
@@ -9,14 +9,14 @@ import EditProfile from "../profile-forms/EditProfile";
 
 import Profiles from "../profiles/Profiles";
 import Profile from "../profile/Profile";
-import Posts from "../posts/Posts";
+import Posts from "../shop/Posts";
 import PrivateRoute from "../routing/PrivateRoute";
 import NotFound from "../layout/NotFound";
 import AddShop from "../shop/AddShop";
 
 const Routes = () => {
 	return (
-		<div className="main-wrap">
+		<div className="page-wrap">
 			<Alert />
 			<Switch>
 				<Route exact path="/register" component={Register} />
