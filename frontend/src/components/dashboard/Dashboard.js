@@ -21,12 +21,16 @@ const Dashboard = ({
 		<Spinner />
 	) : (
 		<Fragment>
-			
 			<p className="lead">
 				<i className="fas fa-user" /> {user && user.name}
 			</p>
 			{profile !== null ? (
 				<Fragment>
+					<p>{profile.location}</p>
+					<p>{profile.website}</p>
+					<p>{profile.bio}</p>
+					{profile.social && profile.social.twitter}
+
 					<DashboardActions />
 
 					<div className="my-2">
