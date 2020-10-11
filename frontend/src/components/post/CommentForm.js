@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { addComment } from "../../actions/post";
 import IconButton from "@material-ui/core/IconButton";
-// import ImageIcon from "@material-ui/icons/Image";
+import ImageIcon from "@material-ui/icons/Image";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
+
+import foodImage from "../../img/food.jpg";
 
 const CommentForm = ({ postId, addComment, auth: { user } }) => {
 	const [text, setText] = useState("");
@@ -17,16 +19,54 @@ const CommentForm = ({ postId, addComment, auth: { user } }) => {
 	function expand() {
 		setExpanded(true);
 	}
+
 	const handleFile = e => {
 		const file = e.target.files[0];
-		// previewFile(file);
+		previewFile(file);
 	};
+
+	const previewFile = file => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onloadend = () => {
+			setPreview(reader.result);
+		};
+	};
+
+	const uploadImage = async base64EncodedImage => {
+		//console.log(base64EncodedImage);
+		try {
+			await fetch("/api/upload", {
+				method: "POST",
+				body: JSON.stringify({ data: base64EncodedImage }),
+				headers: { "Content-type": "application/json" }
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const onSubmit = e => {
+						e.preventDefault();
+						
+if (isNaN(rating) || (isNaN(rating) && text === "")) {
+			alert("please rate!");
+			return;
+		}
+		addComment(postId, { text, rating });
+						setText("");
+						setRating(0);
+						setPreview('')
+						}
+
+
 
 	return (
 		<div
 			className="review-form"
 			style={{ height: isExpanded ? "220px" : "140px" }}
 		>
+		<form>
 			<img className="round-img avatar" src={user && user.avatar} alt="" />
 			<div className="col">
 				<Rating
@@ -35,13 +75,7 @@ const CommentForm = ({ postId, addComment, auth: { user } }) => {
 					onChange={(e, rate) => setRating(rate)}
 					precision={0.5}
 				/>
-				<form
-					onSubmit={e => {
-						e.preventDefault();
-						addComment(postId, { text, rating });
-						setText("");
-					}}
-				>
+				
 					<textarea
 						name="text"
 						cols="60"
@@ -52,11 +86,11 @@ const CommentForm = ({ postId, addComment, auth: { user } }) => {
 						onClick={expand}
 						required
 					/>
-					<input
+					{/* <input
 						type="submit"
 						className="btn btn-dark my-1"
 						value="Submit"
-					/>
+					/> */}
 					<div className="img-preview-wrap">
 						<input
 							id="file-upload"
@@ -75,7 +109,7 @@ const CommentForm = ({ postId, addComment, auth: { user } }) => {
 							className="file-upload"
 						>
 							<IconButton variant="contained" component="span">
-								{/* <ImageIcon /> */}
+								<ImageIcon />
 							</IconButton>
 						</label>
 						{/* <input
@@ -88,7 +122,7 @@ const CommentForm = ({ postId, addComment, auth: { user } }) => {
 					
 
 						<Button
-						
+							onClick={onSubmit}
 							variant="contained"
 							color="primary"
 							className="btn"
@@ -100,14 +134,15 @@ const CommentForm = ({ postId, addComment, auth: { user } }) => {
 						{preview && (
 							<img
 								src={preview}
-								alt="chosen"
+								alt="img-prev"
 								className="img-preview"
 								style={{ height: "70px" }}
 							/>
 						)}
 					</div>
-				</form>
+				
 			</div>
+			</form>
 		</div>
 	);
 };

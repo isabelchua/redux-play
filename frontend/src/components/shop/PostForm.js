@@ -4,7 +4,21 @@ import { connect } from "react-redux";
 import { addPost } from "../../actions/post";
 
 const PostForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
-	const [text, setText] = useState("");
+	const [shop, setShop] = useState({
+		text: '',
+		description: '',
+		phone: '',
+		address:'',
+	});
+
+
+
+	const onChange = (e) => {
+		setShop({
+			...shop,
+			[e.target.name]: e.target.value
+		});
+	}
 
 	return (
 		<Fragment>
@@ -14,17 +28,24 @@ const PostForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 						className="form my-1"
 						onSubmit={e => {
 							e.preventDefault();
-							addPost({ text });
-							setText("");
+							addPost( shop );
+							setShop("");
 						}}
 					>
 						<input
 							type='text'
 							name="text"
 							placeholder="Enter restaurant name"
-							value={text}
-							onChange={e => setText(e.target.value)}
+							value={shop.text}
+							onChange={e => onChange(e)}
 							required
+						/>
+						<input
+							type='text'
+							name="description"
+							placeholder="Enter Description"
+							value={shop.description}
+							onChange={e => onChange(e)}
 						/>
 						<input type="submit" className="btn" value="Submit" />
 					</form>

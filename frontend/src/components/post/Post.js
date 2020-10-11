@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import PostItem from "../posts/PostItem";
 import { getPost } from "../../actions/post";
-import { Link } from "react-router-dom";
 import CommentForm from "./CommentForm";
 import CommentItem from "./CommentItem";
 import ShopBanner from "./ShopBanner";
@@ -16,6 +14,7 @@ const Post = ({
 }) => {
 	useEffect(() => {
 		getPost(match.params.id);
+		// eslint-disable-next-line
 	}, [getPost]);
 
 	return loading || post === null ? (

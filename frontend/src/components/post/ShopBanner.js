@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import Rating from "@material-ui/lab/Rating";
@@ -24,7 +23,7 @@ const ShopBanner = ({
 				<img
 					src={foodImage}
 					style={{ width: "250px", margin: "20px 0", display: "block" }}
-					alt="Food image"
+					alt="Food Banner"
 				/>
 				<p>(415) 555-1515</p>
 				<p>2974 Westheimer Santa Ana, Illinois 85633</p>

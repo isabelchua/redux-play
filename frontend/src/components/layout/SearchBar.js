@@ -1,7 +1,6 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
 
 function SearchBar() {
 	const text = useRef("");
