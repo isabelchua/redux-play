@@ -5,7 +5,7 @@ import Moment from "react-moment";
 import { deleteComment, addLike, removeLike } from "../../actions/post";
 import Rating from "@material-ui/lab/Rating";
 
-const CommentItem = ({
+const ReviewItem = ({
 	addLike,
 	removeLike,
 	postId,
@@ -29,7 +29,13 @@ const CommentItem = ({
 					</Link>
 
 					<div className="review-upper-right">
-						<Rating name="read-only" value={5} readOnly precision={0.5} />
+						{/* <Rating name="read-only" value={5} readOnly precision={0.5} /> */}
+						<Rating
+							name="read-only"
+							value={rating && rating}
+							readOnly
+							precision={0.5}
+						/>
 						<p className="post-date">
 							Reviewed on <Moment format="MM/DD/YYYY">{date}</Moment>
 						</p>
@@ -41,9 +47,11 @@ const CommentItem = ({
 
 				<div className="review-bottom">
 					<div className="review-bottom-left">
-						{likes.length > 0 && (
-							<div>{likes.length} fellow found this review helpful</div>
-						)}{" "}
+						{likes.length > 1
+							? likes.length + "sharks found this review helpful"
+							: likes.length == 1
+							? "1 shark found this review helpful"
+							: " "}
 					</div>
 
 					<div className="review-bottom-right">
@@ -92,5 +100,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { addLike, removeLike, deleteComment })(
-	CommentItem
+	ReviewItem
 );

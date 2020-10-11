@@ -10,36 +10,36 @@ const PostItem = ({
 	removeLike,
 	deletePost,
 	auth,
-	post: { _id, text, name, avatar, user, likes, comments, date, address }
+	post: { _id, text, name, avatar, user, comments, date, address }
 }) => {
 	return (
-		<Link to={`/posts/${_id}`}  className="shop-card">
-		<div className="card">
-			<h3>{text}</h3>
-			
-			<p>{address && address}</p>
-				
-					<span className="comment-count">
-						{comments.length > 1 
-						? comments.length + ' Reviews' :
-						comments.length === 1 ?
-						'1 Review' 
-						:  ('No Reviews')}
-						</span>
-					
-					{auth.user && !auth.loading && user === auth.user._id && (
-						<button
-							onClick={e => deletePost(_id)}
-							type="button"
-							className="btn btn-danger"
-						>
-							<i className="fas fa-times"/> Delete Shop
-						</button>
-					)}
+		<Link to={`/posts/${_id}`} className="shop-card">
+			<div className="card">
+				<h3>{text}</h3>
+
+				<p>{address && address}</p>
+
+				<span className="comment-count">
+					{comments.length > 1
+						? comments.length + " Reviews"
+						: comments.length === 1
+						? "1 Review"
+						: "No Reviews"}
+				</span>
+
+				{auth.user && !auth.loading && user === auth.user._id && (
+					<button
+						onClick={e => deletePost(_id)}
+						type="button"
+						className="btn btn-danger"
+					>
+						<i className="fas fa-times" /> Delete Shop
+					</button>
+				)}
 				<p className="date">
-				Added on <Moment format="MM/DD/YYYY">{date}</Moment>
-			</p>
-		</div>
+					Added on <Moment format="MM/DD/YYYY">{date}</Moment>
+				</p>
+			</div>
 		</Link>
 	);
 };

@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { getPost } from "../../actions/post";
-import CommentForm from "./CommentForm";
-import CommentItem from "./CommentItem";
+import ReviewForm from "./ReviewForm";
+import ReviewItem from "./ReviewItem";
 import ShopBanner from "../shop/ShopBanner";
 
 const Post = ({
@@ -25,13 +25,13 @@ const Post = ({
 				<ShopBanner post={post} />
 			</div>
 			<div className="col2">
-				{isAuthenticated && <CommentForm postId={post._id} />}
+				{isAuthenticated && <ReviewForm postId={post._id} />}
 				<div className="sort">
 					<p className="right">Sort by Date</p>
 				</div>
 				<div className="comments">
 					{post.comments.map(comment => (
-						<CommentItem
+						<ReviewItem
 							key={comment._id}
 							comment={comment}
 							postId={post._id}

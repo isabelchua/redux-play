@@ -13,7 +13,7 @@ const ShopBanner = ({
 	removeLike,
 	deletePost,
 	auth,
-	post: { _id, text, name, avatar, user, likes, comments, date,short },
+	post: { _id, text, name, avatar, user, likes, comments, date, short },
 	showActions
 }) => {
 	return (
@@ -33,9 +33,11 @@ const ShopBanner = ({
 					Located in the heart of the City, this place is known for good
 					food, and good service!
 				</p>
-				<div className='wrap'><Rating name="read-only" value={4.5} readOnly precision={0.5} />
-				{comments.length} Reviews</div>
-				
+				<div className="wrap">
+					<Rating name="read-only" value={4.5} readOnly precision={0.5} />
+					{comments.length} Reviews
+				</div>
+
 				<div className="shop-button">
 					<Button
 						variant="contained"

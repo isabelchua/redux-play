@@ -9,7 +9,7 @@ import Rating from "@material-ui/lab/Rating";
 
 import foodImage from "../../img/food.jpg";
 
-const CommentForm = ({ postId, addComment, auth: { user } }) => {
+const ReviewForm = ({ postId, addComment, auth: { user } }) => {
 	const [text, setText] = useState("");
 	const [isExpanded, setExpanded] = useState(false);
 	const [file, setFile] = useState("");
@@ -47,35 +47,37 @@ const CommentForm = ({ postId, addComment, auth: { user } }) => {
 	};
 
 	const onSubmit = e => {
-						e.preventDefault();
-						
-if (isNaN(rating) || (isNaN(rating) && text === "")) {
+		e.preventDefault();
+
+		if (isNaN(rating) || (isNaN(rating) && text === "")) {
 			alert("please rate!");
 			return;
 		}
 		addComment(postId, { text, rating });
-						setText("");
-						setRating(0);
-						setPreview('')
-						}
-
-
+		setText("");
+		setRating(0);
+		setPreview("");
+	};
 
 	return (
 		<div
 			className="review-form"
 			style={{ height: isExpanded ? "220px" : "140px" }}
 		>
-		<form>
-			<img className="round-img avatar" src={user && user.avatar} alt="" />
-			<div className="col">
-				<Rating
-					name="rating"
-					value={rating}
-					onChange={(e, rate) => setRating(rate)}
-					precision={0.5}
+			<form>
+				<img
+					className="round-img avatar"
+					src={user && user.avatar}
+					alt=""
 				/>
-				
+				<div className="col">
+					<Rating
+						name="rating"
+						value={rating}
+						onChange={(e, rate) => setRating(rate)}
+						precision={0.5}
+					/>
+
 					<textarea
 						name="text"
 						cols="60"
@@ -119,8 +121,6 @@ if (isNaN(rating) || (isNaN(rating) && text === "")) {
 						placeholder="Add image url"
 					></input> */}
 
-					
-
 						<Button
 							onClick={onSubmit}
 							variant="contained"
@@ -140,8 +140,7 @@ if (isNaN(rating) || (isNaN(rating) && text === "")) {
 							/>
 						)}
 					</div>
-				
-			</div>
+				</div>
 			</form>
 		</div>
 	);
@@ -151,4 +150,4 @@ const mapStateToProps = state => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps, { addComment })(CommentForm);
+export default connect(mapStateToProps, { addComment })(ReviewForm);
