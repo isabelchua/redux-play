@@ -11,8 +11,6 @@ const PostForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 		address:'',
 	});
 
-
-
 	const onChange = (e) => {
 		setShop({
 			...shop,
@@ -23,13 +21,18 @@ const PostForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 	return (
 		<Fragment>
 			{isAuthenticated && (
-				<div className="post-form">
+				<div className="form-body">
 					<form
-						className="form my-1"
+						className="form"
 						onSubmit={e => {
 							e.preventDefault();
 							addPost( shop );
-							setShop("");
+							setShop({
+		text: '',
+		description: '',
+		phone: '',
+		address:'',
+	});
 						}}
 					>
 						<input
@@ -45,6 +48,20 @@ const PostForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							name="description"
 							placeholder="Enter Description"
 							value={shop.description}
+							onChange={e => onChange(e)}
+						/>
+						<input
+							type='text'
+							name="phone"
+							placeholder="Enter Phone"
+							value={shop.phone}
+							onChange={e => onChange(e)}
+						/>
+						<input
+							type='text'
+							name="address"
+							placeholder="Enter Address"
+							value={shop.address}
 							onChange={e => onChange(e)}
 						/>
 						<input type="submit" className="btn" value="Submit" />
