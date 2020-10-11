@@ -4,7 +4,7 @@ import Spinner from "../layout/Spinner";
 import { getPost } from "../../actions/post";
 import CommentForm from "./CommentForm";
 import CommentItem from "./CommentItem";
-import ShopBanner from "./ShopBanner";
+import ShopBanner from "../shop/ShopBanner";
 
 const Post = ({
 	getPost,

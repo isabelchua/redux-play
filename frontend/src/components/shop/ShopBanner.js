@@ -13,16 +13,18 @@ const ShopBanner = ({
 	removeLike,
 	deletePost,
 	auth,
-	post: { _id, text, name, avatar, user, likes, comments, date },
+	post: { _id, text, name, avatar, user, likes, comments, date,short },
 	showActions
 }) => {
 	return (
 		<div className="shop-banner">
 			<div className="shop-details">
-				<h1>{text}</h1>
+				<h2>{text}</h2>
+				{/* <p>{short && short}</p> */}
+				<strong>Asian Food</strong>
 				<img
 					src={foodImage}
-					style={{ width: "250px", margin: "20px 0", display: "block" }}
+					style={{ width: "250px", margin: "10px 0", display: "block" }}
 					alt="Food Banner"
 				/>
 				<p>(415) 555-1515</p>
@@ -31,8 +33,9 @@ const ShopBanner = ({
 					Located in the heart of the City, this place is known for good
 					food, and good service!
 				</p>
-				<Rating name="read-only" value={4.5} readOnly precision={0.5} />
-				{comments.length} Reviews
+				<div className='wrap'><Rating name="read-only" value={4.5} readOnly precision={0.5} />
+				{comments.length} Reviews</div>
+				
 				<div className="shop-button">
 					<Button
 						variant="contained"

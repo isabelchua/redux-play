@@ -3,7 +3,6 @@
 @import "alert";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap");
 
-
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -103,7 +102,6 @@ a:hover {
 	}
 }
 
-
 .form {
 	padding: 0 30%;
 
@@ -114,7 +112,7 @@ a:hover {
 		width: 100%;
 		border: 1px solid #ccc;
 		margin: 10px 0px;
-		font-size: 1.1rem;
+		font-size: 1rem;
 	}
 
 	textarea {
@@ -124,20 +122,21 @@ a:hover {
 	}
 }
 
+.home-card {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	justify-content: space-between;
 
-	.home-card {
-		display: flex;
-		width: 100%;
-		flex-wrap: wrap;
-		justify-content: space-between;
-
-		.shop-card {
+	.shop-card {
 		display: flex;
 		margin: 10px;
 		width: 300px;
 	}
 
 	.card {
+		display: flex;
+		flex-direction: column;
 		background-color: #fff;
 		padding: 20px;
 		margin: 10px 0;
@@ -151,12 +150,16 @@ a:hover {
 	}
 
 	.date {
-		font-size: .8rem;
+		font-size: 0.8rem;
 		color: $secondary-color;
 	}
-	}
+}
 
-	
+.wrap {
+	display: flex;
+	justify-content: space-between;
+}
+
 .page-wrap {
 	width: $page-width;
 	background-color: #fff;
@@ -196,6 +199,10 @@ a:hover {
 			width: auto;
 			margin-top: 10px;
 
+			h2 {
+				color: $main-color;
+			}
+
 			img {
 				height: 220px;
 				width: 250px;
@@ -207,11 +214,16 @@ a:hover {
 			}
 			.shop-details {
 				//margin-top: auto;
+				padding-top: 10px;
 				display: flex;
 				flex-direction: column;
 				//flex-grow: 1;
 				flex-basis: 100%;
 				width: auto;
+
+				h1 {
+					margin: 0px;
+				}
 			}
 
 			.shop-button {
@@ -272,6 +284,10 @@ a:hover {
 			.review-top {
 				display: flex;
 				justify-content: space-between;
+			}
+
+			.review-text {
+				margin: 20px 0;
 			}
 
 			.review-upper-right {

@@ -37,7 +37,7 @@ const CommentItem = ({
 				</div>
 			</div>
 			<div className="post-content">
-				<p className="my-1">{text}</p>
+				<p className="review-text">{text}</p>
 
 				<div className="review-bottom">
 					<div className="review-bottom-left">

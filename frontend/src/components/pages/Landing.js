@@ -12,7 +12,7 @@ const Landing = ({ isAuthenticated }) => {
 		<section className="landing">
 			<div className="dark-overlay">
 				<div className="landing-inner">
-					<h1 className="x-large">SharkNip</h1>
+					<h1>SharkNip</h1>
 					<p className="lead">
 						Share where you had a meal, <br />
 						post a review
