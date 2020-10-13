@@ -24,7 +24,7 @@ const EditProfile = ({
 		instagram: ""
 	});
 	const [image, setImage] = useState("");
-
+	const [preview, setPreview] = useState("");
 	const [uploading, setUploading] = useState(false);
 
 	const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -66,8 +66,8 @@ const EditProfile = ({
 
 	const uploadFileHandler = async e => {
 		const file = e.target.files[0];
-		const formData = new FormData();
-		formData.append("image", file);
+		const formData1 = new FormData();
+		formData1.append("image", file);
 		setUploading(true);
 
 		try {
@@ -77,9 +77,14 @@ const EditProfile = ({
 				}
 			};
 
-			const { data } = await axios.post("/api/upload", formData, config);
+			const { data } = await axios.post("/api/upload", formData1, config);
 
 			setImage(data);
+
+			setFormData({
+				avatar: data
+			});
+
 			setUploading(false);
 		} catch (error) {
 			console.error(error);
@@ -92,7 +97,7 @@ const EditProfile = ({
 			<h1 className="large text-primary">Edit Your Profile</h1>
 
 			<form className="form" onSubmit={e => onSubmit(e)}>
-				<label
+				{/* <label
 					aria-label="add image"
 					htmlFor="file-upload"
 					className="file-upload"
@@ -100,20 +105,36 @@ const EditProfile = ({
 					<IconButton variant="contained" component="span">
 						<ImageIcon />
 					</IconButton>
-				</label>
+				</label> */}
 
-				<input
-					type="text"
+				{/* <input
+					id="file-upload"
+					type="file"
+					name="image"
+					accept="image/*"
 					placeholder="Enter image url"
-					value={image}
 					onChange={e => setImage(e.target.value)}
-				></input>
+					value={image}
+					className="file-upload-btn"
+					size="2"
+				/> */}
 
 				<input
 					id="image-file"
+					type="file"
 					label="choose file"
 					onChange={uploadFileHandler}
 				></input>
+				{uploading}
+
+				{preview && (
+					<img
+						src={preview}
+						alt="img-prev"
+						className="img-preview"
+						style={{ height: "70px" }}
+					/>
+				)}
 
 				<div className="form-group">
 					<input
@@ -138,7 +159,7 @@ const EditProfile = ({
 
 				<div className="form-group">
 					<textarea
-						placeholder="A short bio of yourself"
+						placeholder="Tell us about yourself"
 						name="bio"
 						value={bio}
 						onChange={e => onChange(e)}

@@ -10,15 +10,15 @@ const ProfileTop = ({
 	}
 }) => {
 	return (
-		<div class="profile-top">
-			<img class="round-img my-1" src={avatar} alt="" />
-			<h1 class="large">{name}</h1>
+		<div className="profile-top">
+			<img className="round-img my-1" src={avatar} alt="" />
+			<h1 className="large">{name}</h1>
 
 			<p>{location && <span>{location}</span>}</p>
-			<div class="icons my-1">
+			<div className="icons my-1">
 				{website && (
 					<a href={website} target="_blank" rel="noopener noreferrer">
-						<i class="fas fa-globe fa-2x" />
+						<i className="fas fa-globe fa-2x" />
 					</a>
 				)}
 				{social && social.twitter && (
@@ -27,7 +27,7 @@ const ProfileTop = ({
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<i class="fab fa-twitter fa-2x" />
+						<i className="fab fa-twitter fa-2x" />
 					</a>
 				)}
 				{social && social.facebook && (
@@ -36,7 +36,7 @@ const ProfileTop = ({
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<i class="fab fa-facebook fa-2x" />
+						<i className="fab fa-facebook fa-2x" />
 					</a>
 				)}
 
@@ -46,7 +46,7 @@ const ProfileTop = ({
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<i class="fab fa-youtube fa-2x" />
+						<i className="fab fa-youtube fa-2x" />
 					</a>
 				)}
 				{social && social.instagram && (
@@ -55,7 +55,7 @@ const ProfileTop = ({
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<i class="fab fa-instagram fa-2x" />
+						<i className="fab fa-instagram fa-2x" />
 					</a>
 				)}
 			</div>

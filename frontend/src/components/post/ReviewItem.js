@@ -24,7 +24,7 @@ const ReviewItem = ({
 								<p>{name}</p>
 							</strong>
 							{/* <p>{location && location}</p> */}
-							<p>San Francisco</p>
+							<p>{location && location}</p>
 						</div>
 					</Link>
 
@@ -48,7 +48,7 @@ const ReviewItem = ({
 				<div className="review-bottom">
 					<div className="review-bottom-left">
 						{likes.length > 1
-							? likes.length + "sharks found this review helpful"
+							? likes.length + " sharks found this review helpful"
 							: likes.length === 1
 							? "1 shark found this review helpful"
 							: " "}
