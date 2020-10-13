@@ -13,8 +13,8 @@ const ReviewForm = ({ postId, addComment, auth: { user } }) => {
 	const [text, setText] = useState("");
 	const [isExpanded, setExpanded] = useState(false);
 	const [file, setFile] = useState("");
-	const [preview, setPreview] = useState("");
 	const [rating, setRating] = useState(0);
+	const [preview, setPreview] = useState("");
 
 	function expand() {
 		setExpanded(true);
@@ -48,7 +48,7 @@ const ReviewForm = ({ postId, addComment, auth: { user } }) => {
 
 	const onSubmit = e => {
 		e.preventDefault();
-
+		console.log(rating);
 		if (isNaN(rating) || (isNaN(rating) && text === "")) {
 			alert("please rate!");
 			return;

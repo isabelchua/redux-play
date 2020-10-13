@@ -4,8 +4,8 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Alert from "../layout/Alert";
 import Dashboard from "../dashboard/Dashboard";
-import CreateProfile from "../profile-forms/CreateProfile";
-import EditProfile from "../profile-forms/EditProfile";
+import CreateProfile from "../pages/profile-forms/CreateProfile";
+import EditProfile from "../pages/profile-forms/EditProfile";
 
 import Profiles from "../pages/profiles/Profiles";
 import Profile from "../profile/Profile";

@@ -40,6 +40,7 @@ router.post("/", auth, async (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	}
 	const {
+		avatar,
 		website,
 		location,
 		bio,
@@ -54,6 +55,7 @@ router.post("/", auth, async (req, res) => {
 	profileFields.user = req.user.id;
 
 	if (website) profileFields.website = website;
+	if (avatar) profileFields.avatar = avatar;
 	if (location) profileFields.location = location;
 	if (bio) profileFields.bio = bio;
 

@@ -1,8 +1,11 @@
+import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProfile, getCurrentProfile } from "../../actions/profile";
+import { createProfile, getCurrentProfile } from "../../../actions/profile";
+import IconButton from "@material-ui/core/IconButton";
+import ImageIcon from "@material-ui/icons/Image";
 
 const EditProfile = ({
 	profile: { profile, loading },
@@ -11,6 +14,7 @@ const EditProfile = ({
 	history
 }) => {
 	const [formData, setFormData] = useState({
+		avatar: "",
 		website: "",
 		location: "",
 		bio: "",
@@ -19,6 +23,9 @@ const EditProfile = ({
 		youtube: "",
 		instagram: ""
 	});
+	const [image, setImage] = useState("");
+
+	const [uploading, setUploading] = useState(false);
 
 	const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
@@ -27,6 +34,7 @@ const EditProfile = ({
 
 		setFormData({
 			website: loading || !profile.website ? "" : profile.website,
+			avatar: loading || !profile.avatar ? "" : profile.avatar,
 			location: loading || !profile.location ? "" : profile.location,
 			bio: loading || !profile.bio ? "" : profile.bio,
 			twitter: loading || !profile.social ? "" : profile.social.twitter,
@@ -38,6 +46,7 @@ const EditProfile = ({
 	}, [loading, getCurrentProfile]);
 
 	const {
+		avatar,
 		website,
 		location,
 		bio,
@@ -55,11 +64,57 @@ const EditProfile = ({
 		createProfile(formData, history, true);
 	};
 
+	const uploadFileHandler = async e => {
+		const file = e.target.files[0];
+		const formData = new FormData();
+		formData.append("image", file);
+		setUploading(true);
+
+		try {
+			const config = {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			};
+
+			const { data } = await axios.post("/api/upload", formData, config);
+
+			setImage(data);
+			setUploading(false);
+		} catch (error) {
+			console.error(error);
+			setUploading(false);
+		}
+	};
+
 	return (
 		<Fragment>
 			<h1 className="large text-primary">Edit Your Profile</h1>
 
 			<form className="form" onSubmit={e => onSubmit(e)}>
+				<label
+					aria-label="add image"
+					htmlFor="file-upload"
+					className="file-upload"
+				>
+					<IconButton variant="contained" component="span">
+						<ImageIcon />
+					</IconButton>
+				</label>
+
+				<input
+					type="text"
+					placeholder="Enter image url"
+					value={image}
+					onChange={e => setImage(e.target.value)}
+				></input>
+
+				<input
+					id="image-file"
+					label="choose file"
+					onChange={uploadFileHandler}
+				></input>
+
 				<div className="form-group">
 					<input
 						type="text"
@@ -68,9 +123,7 @@ const EditProfile = ({
 						value={website}
 						onChange={e => onChange(e)}
 					/>
-					<small className="form-text">
-						Your website
-					</small>
+					<small className="form-text">Your website</small>
 				</div>
 				<div className="form-group">
 					<input
@@ -80,9 +133,7 @@ const EditProfile = ({
 						value={location}
 						onChange={e => onChange(e)}
 					/>
-					<small className="form-text">
-						Your Location
-					</small>
+					<small className="form-text">Your Location</small>
 				</div>
 
 				<div className="form-group">
@@ -142,8 +193,6 @@ const EditProfile = ({
 								onChange={e => onChange(e)}
 							/>
 						</div>
-
-						
 
 						<div className="form-group social-input">
 							<i className="fab fa-instagram fa-2x" />

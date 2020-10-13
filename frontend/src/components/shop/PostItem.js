@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -24,7 +24,7 @@ const PostItem = ({
 						? comments.length + " Reviews"
 						: comments.length === 1
 						? "1 Review"
-						: "No Reviews"}
+						: "Not Yet Reviewed"}
 				</span>
 
 				{auth.user && !auth.loading && user === auth.user._id && (

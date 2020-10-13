@@ -2,11 +2,12 @@ import React, { Fragment, useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProfile } from "../../actions/profile";
+import { createProfile } from "../../../actions/profile";
 
 const CreateProfile = ({ createProfile, history }) => {
 	const [formData, setFormData] = useState({
 		website: "",
+		avatar: "",
 		location: "",
 		bio: "",
 		twitter: "",
@@ -19,6 +20,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
 	const {
 		website,
+		avatar,
 		location,
 		bio,
 		twitter,
@@ -49,6 +51,8 @@ const CreateProfile = ({ createProfile, history }) => {
 					/>
 					<small className="form-text">Your website</small>
 				</div>
+
+				{/* ADD AVATAR UPLOAD */}
 				<div className="form-group">
 					<input
 						type="text"

@@ -49,7 +49,7 @@ const ReviewItem = ({
 					<div className="review-bottom-left">
 						{likes.length > 1
 							? likes.length + "sharks found this review helpful"
-							: likes.length == 1
+							: likes.length === 1
 							? "1 shark found this review helpful"
 							: " "}
 					</div>
