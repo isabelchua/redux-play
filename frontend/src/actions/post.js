@@ -28,23 +28,6 @@ export const getPosts = () => async dispatch => {
 	}
 };
 
-// Add like
-// export const addLike = id => async dispatch => {
-// 	try {
-// 		const res = await axios.put(`/api/posts/like/${id}`);
-
-// 		dispatch({
-// 			type: UPDATE_LIKES,
-// 			payload: { id, likes: res.data }
-// 		});
-// 	} catch (err) {
-// 		dispatch({
-// 			type: POST_ERROR,
-// 			payload: { msg: err.response.statusText, status: err.response.status }
-// 		});
-// 	}
-// };
-
 // Add Review like
 export const addLike = (shop_id, id) => async dispatch => {
 	try {
@@ -63,23 +46,6 @@ export const addLike = (shop_id, id) => async dispatch => {
 		});
 	}
 };
-
-// Remove like
-// export const removeLike = id => async dispatch => {
-// 	try {
-// 		const res = await axios.put(`/api/posts/unlike/${id}`);
-
-// 		dispatch({
-// 			type: UPDATE_LIKES,
-// 			payload: { id, likes: res.data }
-// 		});
-// 	} catch (err) {
-// 		dispatch({
-// 			type: POST_ERROR,
-// 			payload: { msg: err.response.statusText, status: err.response.status }
-// 		});
-// 	}
-// };
 
 export const removeLike = (shop_id, id) => async dispatch => {
 	try {
@@ -161,7 +127,7 @@ export const getPost = id => async dispatch => {
 };
 
 // Add Review
-export const addComment = (postId, formData) => async dispatch => {
+export const addComment = (postId, formData, rating) => async dispatch => {
 	const config = {
 		headers: {
 			"Content-Type": "application/json"
@@ -172,8 +138,10 @@ export const addComment = (postId, formData) => async dispatch => {
 		const res = await axios.post(
 			`/api/posts/comment/${postId}`,
 			formData,
+			rating,
 			config
 		);
+		console.log(res);
 
 		dispatch({
 			type: ADD_COMMENT,
