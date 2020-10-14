@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { addComment } from "../../actions/post";
 import IconButton from "@material-ui/core/IconButton";
@@ -6,10 +6,17 @@ import ImageIcon from "@material-ui/icons/Image";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
+import { getCurrentProfile } from "../../actions/profile";
 
 import foodImage from "../../img/food.jpg";
 
-const ReviewForm = ({ postId, addComment, auth: { user } }) => {
+const ReviewForm = ({
+	getCurrentProfile,
+	postId,
+	addComment,
+	auth: { user },
+	profile: { profile }
+}) => {
 	const [text, setText] = useState("");
 	const [isExpanded, setExpanded] = useState(false);
 	const [file, setFile] = useState("");
@@ -67,7 +74,7 @@ const ReviewForm = ({ postId, addComment, auth: { user } }) => {
 			<form>
 				<img
 					className="round-img avatar"
-					src={user && user.avatar}
+					src={profile && profile.avatar}
 					alt=""
 				/>
 				<div className="col">
@@ -147,7 +154,10 @@ const ReviewForm = ({ postId, addComment, auth: { user } }) => {
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth
+	auth: state.auth,
+	profile: state.profile
 });
 
-export default connect(mapStateToProps, { addComment })(ReviewForm);
+export default connect(mapStateToProps, { getCurrentProfile, addComment })(
+	ReviewForm
+);

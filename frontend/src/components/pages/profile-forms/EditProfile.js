@@ -66,8 +66,8 @@ const EditProfile = ({
 
 	const uploadFileHandler = async e => {
 		const file = e.target.files[0];
-		const formData1 = new FormData();
-		formData1.append("image", file);
+		const imageData = new FormData();
+		imageData.append("image", file);
 		setUploading(true);
 
 		try {
@@ -77,13 +77,11 @@ const EditProfile = ({
 				}
 			};
 
-			const { data } = await axios.post("/api/upload", formData1, config);
+			const { data } = await axios.post("/api/upload", imageData, config);
 
-			setImage(data);
+			//setImage(data);
 
-			setFormData({
-				avatar: data
-			});
+			setFormData({ ...formData, avatar: data });
 
 			setUploading(false);
 		} catch (error) {
@@ -95,7 +93,9 @@ const EditProfile = ({
 	return (
 		<Fragment>
 			<h1 className="large text-primary">Edit Your Profile</h1>
-
+			<div className="profile-img">
+				<img src={avatar} alt="avatar" width="150" height="150" />
+			</div>
 			<form className="form" onSubmit={e => onSubmit(e)}>
 				{/* <label
 					aria-label="add image"
@@ -125,7 +125,6 @@ const EditProfile = ({
 					label="choose file"
 					onChange={uploadFileHandler}
 				></input>
-				{uploading}
 
 				{preview && (
 					<img

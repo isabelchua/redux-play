@@ -26,6 +26,13 @@ const Dashboard = ({
 			</p>
 			{profile !== null ? (
 				<Fragment>
+					<img
+						src={profile.avatar}
+						alt=""
+						className="round-img"
+						height="100"
+						width="100"
+					/>
 					<p>{profile.location}</p>
 					<p>{profile.website}</p>
 					<p>{profile.bio}</p>

@@ -240,16 +240,19 @@ router.post(
 			const post = await Post.findById(req.params.id);
 
 			const userProf = await Profile.findOne({ user: req.user.id });
+			//const userProf2 = await Profile.findOne({ user: req.params.id });
 			//console.log(userProf.avatar);
 
 			//console.log(req.body.text);
 			//console.log(req.body);
+			console.log(userProf.avatar);
+			//console.log(userProf2.avatar);
 
 			const newComment = {
 				rating: req.body.rating,
 				text: req.body.text,
 				name: user.name,
-				avatar: user.avatar,
+				avatar: userProf.avatar,
 				user: req.user.id,
 				location: userProf.location
 			};

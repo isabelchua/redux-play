@@ -1,6 +1,9 @@
 const path = require("path");
 const express = require("express");
 const multer = require("multer");
+const sharp = require("sharp");
+//const upload = multer(storage);
+const fs = require("fs");
 
 const router = express.Router();
 
@@ -11,7 +14,7 @@ const storage = multer.diskStorage({
 	filename(req, file, cb) {
 		cb(
 			null,
-			`${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+			`ava-${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
 		);
 	}
 });
@@ -37,8 +40,16 @@ const upload = multer({
 	}
 });
 
-router.post("/", upload.single("image"), (req, res) => {
-	res.send(`/${req.file.path}`);
+router.post("/", upload.single("image"), async (req, res) => {
+	// const { filename: image } = req.file;
+
+	// await sharp(req.file.path)
+	// 	.resize(300, 200)
+	// 	.jpeg({ quality: 50 })
+	// 	.toFile(path.resolve(req.file.destination, "resized", image));
+
+	// fs.unlinkSync(req.file.path);
+	res.send(`${req.file.path}`);
 });
 
 module.exports = router;
