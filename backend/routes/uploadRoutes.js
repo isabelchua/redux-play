@@ -19,6 +19,15 @@ const storage = multer.diskStorage({
 	}
 });
 
+const storageReview = multer.diskStorage({
+	destination(req, file, cb) {
+		cb(null, "uploads/review/");
+	},
+	filename(req, file, cb) {
+		cb(null, `${file.fieldname}-${Date.now()}}`);
+	}
+});
+
 function checkFileType(file, cb) {
 	const filetypes = /jpg|jpeg|png/;
 	const extname = filetypes.test(
@@ -40,6 +49,13 @@ const upload = multer({
 	}
 });
 
+const uploadReview = multer({
+	storageReview,
+	fileFilter: function (req, file, cb) {
+		checkFileType(file, cb);
+	}
+});
+
 router.post("/", upload.single("image"), async (req, res) => {
 	// const { filename: image } = req.file;
 
@@ -49,6 +65,10 @@ router.post("/", upload.single("image"), async (req, res) => {
 	// 	.toFile(path.resolve(req.file.destination, "resized", image));
 
 	// fs.unlinkSync(req.file.path);
+	res.send(`${req.file.path}`);
+});
+
+router.post("/review", uploadReview.single("image"), async (req, res) => {
 	res.send(`${req.file.path}`);
 });
 

@@ -24,6 +24,7 @@ app.use("/api/posts", require("./routes/api/posts"));
 // image upload
 const uploadRoutes = require("./routes/uploadRoutes");
 app.use("/api/upload", uploadRoutes);
+//app.use("/api/upload/review", uploadRoutes);
 var __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 

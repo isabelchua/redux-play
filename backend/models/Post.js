@@ -65,6 +65,9 @@ const PostSchema = new Schema({
 			},
 			location: {
 				type: String
+			},
+			cloud_id: {
+				type: String
 			}
 		}
 	],

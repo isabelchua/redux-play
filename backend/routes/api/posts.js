@@ -4,6 +4,9 @@ const { check, validationResult } = require("express-validator/check");
 // const { removeLike } = require("../../client/src/actions/post");
 const auth = require("../../middleware/auth");
 
+const cloudinary = require("../../utils/cloudinary");
+const upload = require("../../utils/multer");
+
 const Post = require("../../models/Post");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
@@ -14,6 +17,7 @@ const User = require("../../models/User");
 router.post(
 	"/",
 	[auth, [check("text", "Text is required").not().isEmpty()]],
+
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -224,6 +228,7 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 router.post(
 	"/comment/:id",
 	[auth, [check("text", "Text is required").not().isEmpty()]],
+	upload.single("image"),
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -239,13 +244,19 @@ router.post(
 			const user = await User.findById(req.user.id).select("-password");
 			const post = await Post.findById(req.params.id);
 
+			// Upload image to cloudinary
+			const fileStr = req.file.path;
+			const result = await cloudinary.uploader.upload(fileStr, {
+				upload_preset: "reviews"
+			});
+
 			const userProf = await Profile.findOne({ user: req.user.id });
 			//const userProf2 = await Profile.findOne({ user: req.params.id });
 			//console.log(userProf.avatar);
 
 			//console.log(req.body.text);
 			//console.log(req.body);
-			console.log(userProf.avatar);
+			//console.log(userProf.avatar);
 			//console.log(userProf2.avatar);
 
 			const newComment = {
@@ -254,7 +265,9 @@ router.post(
 				name: user.name,
 				avatar: userProf.avatar,
 				user: req.user.id,
-				location: userProf.location
+				location: userProf.location,
+				image: result.secure_url,
+				cloud_id: result.public_id
 			};
 
 			post.comments.unshift(newComment);
