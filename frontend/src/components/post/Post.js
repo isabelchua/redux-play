@@ -5,6 +5,7 @@ import { getPost } from "../../actions/post";
 import ReviewForm from "./ReviewForm";
 import ReviewItem from "./ReviewItem";
 import ShopBanner from "../shop/ShopBanner";
+import Footer from "../layout/Footer";
 
 const Post = ({
 	getPost,
@@ -38,6 +39,7 @@ const Post = ({
 						/>
 					))}
 				</div>
+				<Footer />
 			</div>
 		</div>
 	);

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -5,18 +6,48 @@ import { addPost } from "../../actions/post";
 
 const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 	const [shop, setShop] = useState({
-		text: '',
-		description: '',
-		phone: '',
-		address:'',
+		text: "",
+		description: "",
+		phone: "",
+		address: "",
+		image: ""
 	});
+	const [image, setImage] = useState("");
+	const [preview, setPreview] = useState("");
+	const [uploading, setUploading] = useState(false);
 
-	const onChange = (e) => {
+	const uploadFileHandler = async e => {
+		const file = e.target.files[0];
+		const imageData = new FormData();
+		imageData.append("image", file);
+		setUploading(true);
+
+		try {
+			const config = {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			};
+
+			const { data } = await axios.post("/api/upload", imageData, config);
+
+			//setImage(data);
+
+			setShop({ ...shop, image: data });
+
+			setUploading(false);
+		} catch (error) {
+			console.error(error);
+			setUploading(false);
+		}
+	};
+
+	const onChange = e => {
 		setShop({
 			...shop,
 			[e.target.name]: e.target.value
 		});
-	}
+	};
 
 	return (
 		<Fragment>
@@ -26,17 +57,18 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 						className="form"
 						onSubmit={e => {
 							e.preventDefault();
-							addPost( shop );
+							addPost(shop);
 							setShop({
-		text: '',
-		description: '',
-		phone: '',
-		address:'',
-	});
+								text: "",
+								description: "",
+								phone: "",
+								address: "",
+								image: ""
+							});
 						}}
 					>
 						<input
-							type='text'
+							type="text"
 							name="text"
 							placeholder="Enter restaurant name"
 							value={shop.text}
@@ -44,21 +76,37 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							required
 						/>
 						<input
-							type='text'
+							id="image-file"
+							type="file"
+							label="choose file"
+							onChange={uploadFileHandler}
+						></input>
+
+						{preview && (
+							<img
+								src={preview}
+								alt="img-prev"
+								className="img-preview"
+								style={{ height: "70px" }}
+							/>
+						)}
+
+						<input
+							type="text"
 							name="description"
 							placeholder="Enter Description"
 							value={shop.description}
 							onChange={e => onChange(e)}
 						/>
 						<input
-							type='text'
+							type="text"
 							name="phone"
 							placeholder="Enter Phone"
 							value={shop.phone}
 							onChange={e => onChange(e)}
 						/>
 						<input
-							type='text'
+							type="text"
 							name="address"
 							placeholder="Enter Address"
 							value={shop.address}
