@@ -10,12 +10,13 @@ const PostItem = ({
 	removeLike,
 	deletePost,
 	auth,
-	post: { _id, text, name, avatar, user, comments, date, address }
+	post: { _id, text, name, avatar, user, comments, date, address, image }
 }) => {
 	return (
 		<Link to={`/posts/${_id}`} className="shop-card">
 			<div className="card">
 				<h3>{text}</h3>
+				<img src={image} alt="shop" width="150" height="150" />
 
 				<p>{address && address}</p>
 
