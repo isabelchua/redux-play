@@ -13,29 +13,37 @@ import Posts from "../shop/Posts";
 import PrivateRoute from "../routing/PrivateRoute";
 import NotFound from "../layout/NotFound";
 import AddShop from "../shop/AddShop";
+import Footer from "../layout/Footer";
 
 const Routes = () => {
 	return (
-		<div className="page-wrap">
-			<Alert />
-			<Switch>
-				<Route exact path="/register" component={Register} />
-				<Route exact path="/login" component={Login} />
-				<Route exact path="/profiles" component={Profiles} />
-				<Route exact path="/profile/:id" component={Profile} />
-				<PrivateRoute exact path="/dashboard" component={Dashboard} />
-				<PrivateRoute
-					exact
-					path="/create-profile"
-					component={CreateProfile}
-				/>
-				<PrivateRoute exact path="/add-shop" component={AddShop} />
-				<PrivateRoute exact path="/edit-profile" component={EditProfile} />
+		<>
+			<div className="page-wrap">
+				<Alert />
+				<Switch>
+					<Route exact path="/register" component={Register} />
+					<Route exact path="/login" component={Login} />
+					<Route exact path="/profiles" component={Profiles} />
+					<Route exact path="/profile/:id" component={Profile} />
+					<PrivateRoute exact path="/dashboard" component={Dashboard} />
+					<PrivateRoute
+						exact
+						path="/create-profile"
+						component={CreateProfile}
+					/>
+					<PrivateRoute exact path="/add-shop" component={AddShop} />
+					<PrivateRoute
+						exact
+						path="/edit-profile"
+						component={EditProfile}
+					/>
 
-				<Route exact path="/posts" component={Posts} />
-				<Route component={NotFound} />
-			</Switch>
-		</div>
+					<Route exact path="/posts" component={Posts} />
+					<Route component={NotFound} />
+				</Switch>
+			</div>
+			<Footer />
+		</>
 	);
 };
 

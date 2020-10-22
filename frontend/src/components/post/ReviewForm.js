@@ -27,8 +27,9 @@ const ReviewForm = ({
 		setExpanded(true);
 	}
 
-	const handleFile = e => {
+	const handleSubmitFile = e => {
 		const file = e.target.files[0];
+		if (!preview) return;
 		previewFile(file);
 	};
 
@@ -41,7 +42,7 @@ const ReviewForm = ({
 	};
 
 	const uploadImage = async base64EncodedImage => {
-		//console.log(base64EncodedImage);
+		console.log(base64EncodedImage);
 		try {
 			await fetch("/api/upload", {
 				method: "POST",
@@ -55,6 +56,7 @@ const ReviewForm = ({
 
 	const onSubmit = e => {
 		e.preventDefault();
+		handleSubmitFile();
 		console.log(rating);
 		if (isNaN(rating) || (isNaN(rating) && text === "")) {
 			alert("please rate!");
@@ -65,6 +67,8 @@ const ReviewForm = ({
 		setRating(0);
 		setPreview("");
 	};
+
+	const handleFile = () => {};
 
 	return (
 		<div
