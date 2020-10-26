@@ -24,9 +24,11 @@ app.use("/api/posts", require("./routes/api/posts"));
 // image upload
 const uploadRoutes = require("./routes/uploadRoutes");
 app.use("/api/upload", uploadRoutes);
+// app.use("/api/upload/shop", uploadRoutes);
 //app.use("/api/upload/review", uploadRoutes);
 var __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+// app.use("/uploads/shop", express.static(path.join(__dirname, "/uploads/shop")));
 
 const PORT = process.env.PORT || 5000;
 

@@ -24,39 +24,23 @@ const ProfileTop = ({
 					</a>
 				)}
 				{social && social.twitter && (
-					<a
-						href={social.twitter}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+					<a href={social.twitter}>
 						<i className="fab fa-twitter fa-2x" />
 					</a>
 				)}
 				{social && social.facebook && (
-					<a
-						href={social.facebook}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+					<a href={social.facebook}>
 						<i className="fab fa-facebook fa-2x" />
 					</a>
 				)}
 
 				{social && social.youtube && (
-					<a
-						href={social.youtube}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+					<a href={social.youtube}>
 						<i className="fab fa-youtube fa-2x" />
 					</a>
 				)}
 				{social && social.instagram && (
-					<a
-						href={social.instagram}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+					<a href={social.instagram}>
 						<i className="fab fa-instagram fa-2x" />
 					</a>
 				)}

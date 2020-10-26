@@ -18,7 +18,11 @@ const ReviewItem = ({
 			<div className="user-profile-post">
 				<div className="review-top">
 					<Link to={`/profile/${user}`}>
-						<img className="round-img avatar" src={avatar} alt="" />
+						<img
+							className="round-img avatar"
+							src={"../" + avatar}
+							alt=""
+						/>
 						<div className="user-details-post">
 							<strong>
 								<p>{name}</p>

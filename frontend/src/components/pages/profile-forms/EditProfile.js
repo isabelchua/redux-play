@@ -23,6 +23,7 @@ const EditProfile = ({
 		youtube: "",
 		instagram: ""
 	});
+
 	const [image, setImage] = useState("");
 	const [preview, setPreview] = useState("");
 	const [uploading, setUploading] = useState(false);

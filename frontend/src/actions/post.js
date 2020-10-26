@@ -1,5 +1,7 @@
 import axios from "axios";
 import { setAlert } from "./alert";
+import { useHistory } from "react-router-dom";
+
 import {
 	GET_POSTS,
 	POST_ERROR,
@@ -68,8 +70,8 @@ export const removeLike = (shop_id, id) => async dispatch => {
 // Delete Shop
 export const deletePost = id => async dispatch => {
 	try {
+		console.log("delete shop");
 		await axios.delete(`/api/posts/${id}`);
-
 		dispatch({
 			type: DELETE_POST,
 			payload: id

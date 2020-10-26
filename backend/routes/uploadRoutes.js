@@ -14,10 +14,22 @@ const storage = multer.diskStorage({
 	filename(req, file, cb) {
 		cb(
 			null,
-			`ava-${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+			`${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
 		);
 	}
 });
+
+// const storageShop = multer.diskStorage({
+// 	destination(req, file, cb) {
+// 		cb(null, "uploads/shop/");
+// 	},
+// 	filename(req, file, cb) {
+// 		cb(
+// 			null,
+// 			`${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+// 		);
+// 	}
+// });
 
 const storageReview = multer.diskStorage({
 	destination(req, file, cb) {
@@ -49,6 +61,13 @@ const upload = multer({
 	}
 });
 
+// const uploadShop = multer({
+// 	storageShop,
+// 	fileFilter: function (req, file, cb) {
+// 		checkFileType(file, cb);
+// 	}
+// });
+
 const uploadReview = multer({
 	storageReview,
 	fileFilter: function (req, file, cb) {
@@ -67,6 +86,10 @@ router.post("/", upload.single("image"), async (req, res) => {
 	// fs.unlinkSync(req.file.path);
 	res.send(`${req.file.path}`);
 });
+
+// router.post("/shop", uploadShop.single("image"), async (req, res) => {
+// 	res.send(`${req.file.path}`);
+// });
 
 router.post("/review", uploadReview.single("image"), async (req, res) => {
 	res.send(`${req.file.path}`);

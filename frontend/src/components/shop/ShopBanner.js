@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import Rating from "@material-ui/lab/Rating";
 import Button from "@material-ui/core/Button";
 import RoomIcon from "@material-ui/icons/Room";
 import ShareIcon from "@material-ui/icons/Share";
+import { deletePost } from "../../actions/post";
+import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import foodImage from "../../img/food.jpg";
 
@@ -30,6 +33,21 @@ const ShopBanner = ({
 	},
 	showActions
 }) => {
+	let history = useHistory();
+
+	// useEffect(() => {
+	// 	history.push("/");
+	// }, [deletePost]);
+
+	// if (deletePost) {
+	// 	<Redirect to="/shops" />;
+	// }
+
+	const deleteShop = e => {
+		deletePost(_id);
+		history.push("/");
+	};
+
 	return (
 		<div className="shop-banner">
 			<div className="shop-details">
@@ -77,6 +95,17 @@ const ShopBanner = ({
 				<p className="post-date">
 					Added on <Moment format="MM/DD/YYYY">{date}</Moment>
 				</p>
+
+				{auth.user && !auth.loading && user === auth.user._id && (
+					<button
+						// onClick={e => deletePost(_id)}
+						onClick={deleteShop}
+						type="button"
+						className="btn btn-danger"
+					>
+						<i className="fas fa-times" /> Delete Shop
+					</button>
+				)}
 			</div>
 		</div>
 	);
@@ -86,4 +115,4 @@ const mapStateToProps = state => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps)(ShopBanner);
+export default connect(mapStateToProps, { deletePost })(ShopBanner);

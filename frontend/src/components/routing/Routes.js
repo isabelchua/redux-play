@@ -13,6 +13,7 @@ import Posts from "../shop/Posts";
 import PrivateRoute from "../routing/PrivateRoute";
 import NotFound from "../layout/NotFound";
 import AddShop from "../shop/AddShop";
+import EditShop from "../shop/EditShop";
 import Footer from "../layout/Footer";
 
 const Routes = () => {
@@ -32,6 +33,7 @@ const Routes = () => {
 						component={CreateProfile}
 					/>
 					<PrivateRoute exact path="/add-shop" component={AddShop} />
+					<PrivateRoute exact path="/edit-shop" component={EditShop} />
 					<PrivateRoute
 						exact
 						path="/edit-profile"
