@@ -6,6 +6,7 @@ import ReviewForm from "./ReviewForm";
 import ReviewItem from "./ReviewItem";
 import ShopBanner from "../shop/ShopBanner";
 import Footer from "../layout/Footer";
+import GuestMessage from "../layout/GuestMessage";
 
 const Post = ({
 	getPost,
@@ -26,7 +27,11 @@ const Post = ({
 				<ShopBanner post={post} />
 			</div>
 			<div className="col2">
-				{isAuthenticated && <ReviewForm postId={post._id} />}
+				{isAuthenticated ? (
+					<ReviewForm postId={post._id} />
+				) : (
+					<GuestMessage />
+				)}
 				<div className="sort">
 					<p className="right">Sort by Date</p>
 				</div>
