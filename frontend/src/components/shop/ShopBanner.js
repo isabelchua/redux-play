@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import Rating from "@material-ui/lab/Rating";
