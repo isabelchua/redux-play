@@ -13,7 +13,21 @@ const ShopBanner = ({
 	removeLike,
 	deletePost,
 	auth,
-	post: { _id, text, name, avatar, user, likes, comments, date, short },
+	post: {
+		_id,
+		text,
+		name,
+		avatar,
+		user,
+		likes,
+		comments,
+		date,
+		short,
+		image,
+		description,
+		address,
+		phone
+	},
 	showActions
 }) => {
 	return (
@@ -21,15 +35,17 @@ const ShopBanner = ({
 			<div className="shop-details">
 				<h2>{text}</h2>
 				{/* <p>{short && short}</p> */}
-				<strong>Asian Food</strong>
+				<strong>{short}</strong>
 				<img
-					src={foodImage}
+					// src={foodImage}
+					src={"../" + image}
 					style={{ width: "250px", margin: "10px 0", display: "block" }}
 					alt="Food Banner"
 				/>
-				<p>(415) 555-1515</p>
-				<p>2974 Westheimer Santa Ana, Illinois 85633</p>
+				<p>{phone} (415) 555-1515</p>
+				<p>{address} 2974 Westheimer Santa Ana, Illinois 85633</p>
 				<p>
+					{description}
 					Located in the heart of the City, this place is known for good
 					food, and good service!
 				</p>

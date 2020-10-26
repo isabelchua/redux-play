@@ -23,6 +23,10 @@ const ReviewForm = ({
 	const [rating, setRating] = useState(0);
 	const [preview, setPreview] = useState("");
 
+	useEffect(() => {
+		getCurrentProfile();
+	}, [getCurrentProfile]);
+
 	function expand() {
 		setExpanded(true);
 	}
@@ -78,7 +82,7 @@ const ReviewForm = ({
 			<form>
 				<img
 					className="round-img avatar"
-					src={profile && profile.avatar}
+					src={profile && "../" + profile.avatar}
 					alt=""
 				/>
 				<div className="col">

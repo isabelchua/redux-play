@@ -3,11 +3,9 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { addLike, removeLike, deletePost } from "../../actions/post";
+import { deletePost } from "../../actions/post";
 
 const PostItem = ({
-	addLike,
-	removeLike,
 	deletePost,
 	auth,
 	post: { _id, text, name, avatar, user, comments, date, address, image }
@@ -57,6 +55,4 @@ const mapStateToProps = state => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
-	PostItem
-);
+export default connect(mapStateToProps, { deletePost })(PostItem);
