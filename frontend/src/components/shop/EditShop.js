@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addPost, getPost } from "../../actions/post";
+import { editPost, getPost } from "../../actions/post";
 import Spinner from "../layout/Spinner";
 
 const EditShop = ({
 	auth: { isAuthenticated },
-	addPost,
+	editPost,
 	getPost,
 	post: { post, _id, loading },
 	match,
@@ -91,7 +91,7 @@ const EditShop = ({
 
 	const onSubmit = e => {
 		e.preventDefault();
-		addPost(shop, history, true);
+		editPost(shop, match.params.id, history, true);
 	};
 
 	return loading || post === null ? (
@@ -159,4 +159,4 @@ const mapStateToProps = state => ({
 	post: state.post
 });
 
-export default connect(mapStateToProps, { getPost })(EditShop);
+export default connect(mapStateToProps, { getPost, editPost })(EditShop);

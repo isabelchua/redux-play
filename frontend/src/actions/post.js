@@ -130,7 +130,7 @@ export const getPost = id => async dispatch => {
 };
 
 // Edit Shop
-export const editPost = (formData, history) => async dispatch => {
+export const editPost = (formData, id, history) => async dispatch => {
 	const config = {
 		headers: {
 			"Content-Type": "application/json"
@@ -138,9 +138,10 @@ export const editPost = (formData, history) => async dispatch => {
 	};
 
 	console.log(formData);
+	console.log(id);
 
 	try {
-		const res = await axios.put("/api/posts", formData, config);
+		const res = await axios.put(`/api/posts/${id}`, formData, config);
 
 		dispatch({
 			type: EDIT_POST,

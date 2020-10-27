@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
+
 import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../../actions/profile";
-import IconButton from "@material-ui/core/IconButton";
-import ImageIcon from "@material-ui/icons/Image";
 
 const EditProfile = ({
 	profile: { profile, loading },
@@ -235,12 +233,6 @@ const EditProfile = ({
 			</form>
 		</Fragment>
 	);
-};
-
-EditProfile.propTypes = {
-	createProfile: PropTypes.func.isRequired,
-	getCurrentProfile: PropTypes.func.isRequired,
-	profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
