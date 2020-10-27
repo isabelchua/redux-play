@@ -1,6 +1,5 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { useHistory } from "react-router-dom";
 
 import {
 	GET_POSTS,

@@ -43,15 +43,6 @@ const ShopBanner = ({
 	// 	<Redirect to="/shops" />;
 	// }
 
-	const deleteShop = async e => {
-		try {
-			await deletePost(_id);
-			history.push("/");
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
 	const editShop = async e => {
 		try {
 			// await editPost(_id);
