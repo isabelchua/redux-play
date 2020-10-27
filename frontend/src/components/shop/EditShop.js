@@ -3,12 +3,14 @@ import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost, getPost } from "../../actions/post";
+import Spinner from "../layout/Spinner";
 
 const EditShop = ({
-	auth: { isAuthenticated, loading },
+	auth: { isAuthenticated },
 	addPost,
 	getPost,
-	post: { post }
+	post: { post, _id, loading },
+	match
 }) => {
 	const [shop, setShop] = useState({
 		text: "",
@@ -22,16 +24,36 @@ const EditShop = ({
 	const [image, setImage] = useState("");
 	const [preview, setPreview] = useState("");
 	const [uploading, setUploading] = useState(false);
-
+	// console.log(_id);
+	// console.log(match.params.id);
 	useEffect(() => {
-		getPost();
+		getPost(match.params.id);
 
-		setShop({
-			address: loading || !post.address ? "" : post.address,
-			phone: loading || !post.phone ? "" : post.phone
-		});
+		if (post !== null) {
+			setShop({
+				address: loading || !post.address ? "" : post.address,
+				text: loading || !post.text ? "" : post.text,
+				description: loading || !post.description ? "" : post.description,
+				phone: loading || !post.phone ? "" : post.phone,
+				short: loading || !post.short ? "" : post.short,
+				image: loading || !post.image ? "" : post.image
+			});
+		}
+		// phone: (post && loading) || !post.phone ? "" : post.phone
 		// eslint-disable-next-line
 	}, [loading, getPost]);
+
+	// console.log(shop);
+	// if (post !== null) {
+	// 	console.log(post);
+	// }
+	// if (post === null) {
+	// 	// console.log(post.address);
+	// } else {
+	// 	setShop({
+	// 		address: loading && !post.address ? "" : post.address
+	// 	});
+	// }
 
 	const uploadFileHandler = async e => {
 		const file = e.target.files[0];
@@ -65,7 +87,10 @@ const EditShop = ({
 			[e.target.name]: e.target.value
 		});
 	};
-	return (
+
+	return loading || post === null ? (
+		<Spinner />
+	) : (
 		<Fragment>
 			{isAuthenticated && (
 				<div className="post-form">

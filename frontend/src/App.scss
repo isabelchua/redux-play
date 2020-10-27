@@ -510,6 +510,10 @@ textarea:focus {
 	cursor: pointer;
 }
 
+.no-margin {
+	margin: 0 !important;
+}
+
 .bg-color-sub {
 	background-color: $sub-color !important;
 }

@@ -33,7 +33,7 @@ const Routes = () => {
 						component={CreateProfile}
 					/>
 					<PrivateRoute exact path="/add-shop" component={AddShop} />
-					<PrivateRoute exact path="/edit-shop" component={EditShop} />
+					<PrivateRoute exact path="/edit-shop/:id" component={EditShop} />
 					<PrivateRoute
 						exact
 						path="/edit-profile"

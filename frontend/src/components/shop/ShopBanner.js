@@ -6,8 +6,8 @@ import Button from "@material-ui/core/Button";
 import RoomIcon from "@material-ui/icons/Room";
 import ShareIcon from "@material-ui/icons/Share";
 import { deletePost } from "../../actions/post";
-import { Redirect } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+
+import { useHistory, Link } from "react-router-dom";
 
 import foodImage from "../../img/food.jpg";
 
@@ -43,9 +43,22 @@ const ShopBanner = ({
 	// 	<Redirect to="/shops" />;
 	// }
 
-	const deleteShop = e => {
-		deletePost(_id);
-		history.push("/");
+	const deleteShop = async e => {
+		try {
+			await deletePost(_id);
+			history.push("/");
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const editShop = async e => {
+		try {
+			// await editPost(_id);
+			history.push("/");
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	return (
@@ -97,14 +110,27 @@ const ShopBanner = ({
 				</p>
 
 				{auth.user && !auth.loading && user === auth.user._id && (
-					<button
-						// onClick={e => deletePost(_id)}
-						onClick={deleteShop}
-						type="button"
-						className="btn btn-danger"
-					>
-						<i className="fas fa-times" /> Delete Shop
-					</button>
+					<>
+						{/* <button
+							// onClick={e => deletePost(_id)}
+							onClick={deleteShop}
+							type="button"
+							className="btn btn-danger"
+						>
+							<i className="fas fa-times" /> Delete Shop
+						</button> */}
+						<Link to={`/edit-shop/${_id}`} className="btn btn-dark">
+							Edit Shop
+						</Link>
+						{/* <button
+							// onClick={e => deletePost(_id)}
+							onClick={editShop}
+							type="button"
+							className="btn btn-danger"
+						>
+							<i className="fas fa-times" /> Edit Shop
+						</button> */}
+					</>
 				)}
 			</div>
 		</div>
