@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { addComment } from "../../actions/post";
@@ -21,7 +22,10 @@ const ReviewForm = ({
 	const [isExpanded, setExpanded] = useState(false);
 	const [file, setFile] = useState("");
 	const [rating, setRating] = useState(0);
+
+	const [image, setImage] = useState("");
 	const [preview, setPreview] = useState("");
+	const [uploading, setUploading] = useState(false);
 
 	useEffect(() => {
 		getCurrentProfile();
@@ -45,22 +49,47 @@ const ReviewForm = ({
 		};
 	};
 
-	const uploadImage = async base64EncodedImage => {
-		console.log(base64EncodedImage);
+	// const uploadImage = async base64EncodedImage => {
+	// 	console.log(base64EncodedImage);
+	// 	try {
+	// 		await fetch("/api/upload", {
+	// 			method: "POST",
+	// 			body: JSON.stringify({ data: base64EncodedImage }),
+	// 			headers: { "Content-type": "application/json" }
+	// 		});
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// };
+
+	const uploadFileHandler = async e => {
+		const file = e.target.files[0];
+		const imageData = new FormData();
+		imageData.append("image", file);
+		setUploading(true);
+
 		try {
-			await fetch("/api/upload", {
-				method: "POST",
-				body: JSON.stringify({ data: base64EncodedImage }),
-				headers: { "Content-type": "application/json" }
-			});
-		} catch (err) {
-			console.error(err);
+			const config = {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			};
+
+			const { data } = await axios.post("/api/upload", imageData, config);
+
+			//setNote({ ...note, avatar: data });
+			setFile(data);
+
+			setUploading(false);
+		} catch (error) {
+			console.error(error);
+			setUploading(false);
 		}
 	};
 
 	const onSubmit = e => {
 		e.preventDefault();
-		handleSubmitFile();
+		//handleSubmitFile();
 		console.log(rating);
 		if (isNaN(rating) || (isNaN(rating) && note === "")) {
 			alert("please rate!");
@@ -71,8 +100,6 @@ const ReviewForm = ({
 		setRating(0);
 		setPreview("");
 	};
-
-	const handleFile = () => {};
 
 	return (
 		<div
@@ -114,7 +141,7 @@ const ReviewForm = ({
 							type="file"
 							name="image"
 							accept="image/*"
-							onChange={handleFile}
+							onChange={handleSubmitFile}
 							value={file}
 							className="file-upload-btn"
 							size="2"

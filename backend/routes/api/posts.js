@@ -233,33 +233,33 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 // @route    PUT api/posts/unlike/:id
 // @desc     Like a shop
 // @access   Private
-router.put("/unlike/:id/:review_id", auth, async (req, res) => {
-	try {
-		const shop = await Shop.findById(req.params.id);
+// router.put("/unlike/:id/:review_id", auth, async (req, res) => {
+// 	try {
+// 		const shop = await Shop.findById(req.params.id);
 
-		// Check if the post has already been liked
-		if (
-			shop.likes.filter(like => like.user.toString() === req.user.id)
-				.length === 0
-		) {
-			return res.status(400).json({ msg: "Shop has not yet been liked" });
-		}
+// 		// Check if the post has already been liked
+// 		if (
+// 			shop.likes.filter(like => like.user.toString() === req.user.id)
+// 				.length === 0
+// 		) {
+// 			return res.status(400).json({ msg: "Shop has not yet been liked" });
+// 		}
 
-		// Get remove index
-		const removeIndex = post.likes
-			.map(like => like.user.toString())
-			.indexOf(req.user.id);
+// 		// Get remove index
+// 		const removeIndex = post.likes
+// 			.map(like => like.user.toString())
+// 			.indexOf(req.user.id);
 
-		shop.likes.splice(removeIndex, 1);
+// 		shop.likes.splice(removeIndex, 1);
 
-		await shop.save();
+// 		await shop.save();
 
-		res.json(shop.likes);
-	} catch (err) {
-		console.error(err.message);
-		res.status(500).send("Server Error");
-	}
-});
+// 		res.json(shop.likes);
+// 	} catch (err) {
+// 		console.error(err.message);
+// 		res.status(500).send("Server Error");
+// 	}
+// });
 
 // @route    POST api/posts/comment/:id
 // @desc     Add a Review
@@ -267,7 +267,7 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 router.post(
 	"/comment/:id",
 	[auth, [check("note", "Review is required").not().isEmpty()]],
-	upload.single("image"),
+	// upload.single("image"),
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -283,11 +283,11 @@ router.post(
 			const user = await User.findById(req.user.id).select("-password");
 			const shop = await Shop.findById(req.params.id);
 
-			// Upload image to cloudinary
-			const fileStr = req.file.path;
-			const result = await cloudinary.uploader.upload(fileStr, {
-				upload_preset: "reviews"
-			});
+			// // Upload image to cloudinary
+			// const fileStr = req.file.path;
+			// const result = await cloudinary.uploader.upload(fileStr, {
+			// 	upload_preset: "reviews"
+			// });
 
 			const userProf = await Profile.findOne({ user: req.user.id });
 			//const userProf2 = await Profile.findOne({ user: req.params.id });
@@ -304,8 +304,9 @@ router.post(
 				avatar: userProf.avatar,
 				user: req.user.id,
 				location: userProf.location,
-				image: result.secure_url,
-				cloud_id: result.public_id
+				image: req.body.image
+				// image: result.secure_url,
+				// cloud_id: result.public_id
 			};
 
 			shop.reviews.unshift(newComment);
