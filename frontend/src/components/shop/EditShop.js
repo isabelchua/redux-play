@@ -10,7 +10,8 @@ const EditShop = ({
 	addPost,
 	getPost,
 	post: { post, _id, loading },
-	match
+	match,
+	history
 }) => {
 	const [shop, setShop] = useState({
 		text: "",
@@ -88,26 +89,18 @@ const EditShop = ({
 		});
 	};
 
+	const onSubmit = e => {
+		e.preventDefault();
+		addPost(shop, history, true);
+	};
+
 	return loading || post === null ? (
 		<Spinner />
 	) : (
 		<Fragment>
 			{isAuthenticated && (
 				<div className="post-form">
-					<form
-						className="form"
-						onSubmit={e => {
-							e.preventDefault();
-							addPost(shop);
-							setShop({
-								text: "",
-								description: "",
-								phone: "",
-								address: "",
-								image: ""
-							});
-						}}
-					>
+					<form className="form" onSubmit={e => onSubmit(e)}>
 						<input
 							type="text"
 							name="text"
