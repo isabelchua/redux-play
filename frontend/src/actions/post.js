@@ -10,7 +10,8 @@ import {
 	ADD_POST,
 	GET_POST,
 	ADD_COMMENT,
-	REMOVE_COMMENT
+	REMOVE_COMMENT,
+	EDIT_POST
 } from "./types";
 
 // Get posts
@@ -120,6 +121,35 @@ export const getPost = id => async dispatch => {
 			type: GET_POST,
 			payload: res.data
 		});
+	} catch (err) {
+		dispatch({
+			type: POST_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status }
+		});
+	}
+};
+
+// Edit Shop
+export const editPost = (formData, history) => async dispatch => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json"
+		}
+	};
+
+	console.log(formData);
+
+	try {
+		const res = await axios.put("/api/posts", formData, config);
+
+		dispatch({
+			type: EDIT_POST,
+			payload: res.data
+		});
+
+		// history.push("/dashboard")
+
+		dispatch(setAlert("Shop Updated", "success"));
 	} catch (err) {
 		dispatch({
 			type: POST_ERROR,
