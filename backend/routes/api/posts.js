@@ -293,7 +293,6 @@ router.post(
 			//const userProf2 = await Profile.findOne({ user: req.params.id });
 			//console.log(userProf.avatar);
 
-			//console.log(req.body.text);
 			//console.log(req.body);
 			//console.log(userProf.avatar);
 			//console.log(userProf2.avatar);

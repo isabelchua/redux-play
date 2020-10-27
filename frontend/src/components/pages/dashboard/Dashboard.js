@@ -2,10 +2,10 @@ import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
+import Spinner from "../../layout/Spinner";
 import DashboardActions from "./DashboardActions";
 
-import { getCurrentProfile, deleteAccount } from "../../actions/profile";
+import { getCurrentProfile, deleteAccount } from "../../../actions/profile";
 
 const Dashboard = ({
 	getCurrentProfile,

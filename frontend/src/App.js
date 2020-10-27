@@ -11,7 +11,7 @@ import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 
 import "./App.scss";
-import Review from "./components/post/Review";
+import ShopPage from "./components/review/ShopPage";
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -29,7 +29,7 @@ const App = () => {
 					<Navbar />
 					<Switch>
 						<Route exact path="/" component={Landing} />
-						<Route exact path="/posts/:id" component={Review} />
+						<Route exact path="/posts/:id" component={ShopPage} />
 
 						<Route component={Routes} />
 					</Switch>

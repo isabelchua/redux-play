@@ -9,7 +9,7 @@ const ReviewItem = ({
 	addLike,
 	removeLike,
 	postId,
-	comment: { _id, note, name, avatar, user, likes, date, rating, location },
+	review: { _id, note, name, avatar, user, likes, date, rating, location },
 	auth,
 	deleteComment
 }) => {

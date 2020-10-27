@@ -4,7 +4,7 @@ import Spinner from "../layout/Spinner";
 import { getPost } from "../../actions/post";
 import ReviewForm from "./ReviewForm";
 import ReviewItem from "./ReviewItem";
-import ShopBanner from "../shop/ShopBanner";
+import ShopBanner from "./ShopBanner";
 import Footer from "../layout/Footer";
 import GuestMessage from "../layout/GuestMessage";
 
@@ -36,10 +36,10 @@ const Review = ({
 					<p className="right">Sort by Date</p>
 				</div>
 				<div className="comments">
-					{post.reviews.map(comment => (
+					{post.reviews.map(review => (
 						<ReviewItem
-							key={comment._id}
-							comment={comment}
+							key={review._id}
+							review={review}
 							postId={post._id}
 						/>
 					))}

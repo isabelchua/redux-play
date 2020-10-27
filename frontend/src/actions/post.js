@@ -58,7 +58,7 @@ export const removeLike = (shop_id, id) => async dispatch => {
 			payload: { id, likes: res.data }
 		});
 
-		dispatch(setAlert("Review unliked", "danger"));
+		dispatch(setAlert("Review Unliked", "danger"));
 	} catch (err) {
 		dispatch({
 			type: POST_ERROR,
@@ -70,7 +70,7 @@ export const removeLike = (shop_id, id) => async dispatch => {
 // Delete Shop
 export const deletePost = id => async dispatch => {
 	try {
-		console.log("delete shop");
+		//console.log("delete shop");
 		await axios.delete(`/api/posts/${id}`);
 		dispatch({
 			type: DELETE_POST,
@@ -199,7 +199,7 @@ export const deleteComment = (postId, commentId) => async dispatch => {
 			payload: commentId
 		});
 
-		dispatch(setAlert("Comment Removed", "success"));
+		dispatch(setAlert("Review Removed", "success"));
 	} catch (err) {
 		dispatch({
 			type: POST_ERROR,

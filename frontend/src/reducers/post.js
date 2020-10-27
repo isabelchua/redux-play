@@ -63,10 +63,10 @@ export default function (state = initialState, action) {
 				...state,
 				post: {
 					...state.post,
-					comments: state.post.comments.map(comment =>
-						comment._id === payload.id
-							? { ...comment, likes: payload.likes }
-							: comment
+					reviews: state.post.reviews.map(review =>
+						review._id === payload.id
+							? { ...review, likes: payload.likes }
+							: review
 					)
 				},
 				loading: false
@@ -74,7 +74,7 @@ export default function (state = initialState, action) {
 		case ADD_COMMENT:
 			return {
 				...state,
-				post: { ...state.post, comments: payload },
+				post: { ...state.post, reviews: payload },
 				loading: false
 			};
 		case REMOVE_COMMENT:
@@ -82,8 +82,8 @@ export default function (state = initialState, action) {
 				...state,
 				post: {
 					...state.post,
-					comments: state.post.comments.filter(
-						comment => comment._id !== payload
+					reviews: state.post.reviews.filter(
+						review => review._id !== payload
 					)
 				},
 				loading: false

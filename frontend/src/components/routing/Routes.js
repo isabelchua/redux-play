@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Alert from "../layout/Alert";
-import Dashboard from "../dashboard/Dashboard";
+import Dashboard from "../pages/dashboard/Dashboard";
 import CreateProfile from "../pages/profile-forms/CreateProfile";
 import EditProfile from "../pages/profile-forms/EditProfile";
 

@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 function SearchBar() {
 	const text = useRef("");
-	
+
 	const onChange = e => {
 		if (text.current.value !== "") {
 			// searchPost(e.target.value);
@@ -18,7 +18,7 @@ function SearchBar() {
 			<input
 				type="text"
 				ref={text}
-				placeholder="Search Posts"
+				placeholder="Search Reviews"
 				onChange={onChange}
 				name=""
 				className="search"
