@@ -296,15 +296,16 @@ router.post(
 			//console.log(req.body);
 			//console.log(userProf.avatar);
 			//console.log(userProf2.avatar);
+			console.log("back" + req.body.image);
 
 			const newComment = {
 				rating: req.body.rating,
 				note: req.body.note,
+				image: req.body.image,
 				name: user.name,
 				avatar: userProf.avatar,
 				user: req.user.id,
-				location: userProf.location,
-				image: req.body.image
+				location: userProf.location
 				// image: result.secure_url,
 				// cloud_id: result.public_id
 			};

@@ -159,7 +159,12 @@ export const editPost = (formData, id, history) => async dispatch => {
 };
 
 // Add Review
-export const addComment = (postId, formData, rating) => async dispatch => {
+export const addComment = (
+	postId,
+	formData,
+	rating,
+	image
+) => async dispatch => {
 	const config = {
 		headers: {
 			"Content-Type": "application/json"
@@ -171,6 +176,7 @@ export const addComment = (postId, formData, rating) => async dispatch => {
 			`/api/posts/comment/${postId}`,
 			formData,
 			rating,
+			image,
 			config
 		);
 		//console.log(res);

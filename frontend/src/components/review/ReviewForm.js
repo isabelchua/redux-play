@@ -20,11 +20,11 @@ const ReviewForm = ({
 }) => {
 	const [note, setNote] = useState("");
 	const [isExpanded, setExpanded] = useState(false);
-	const [file, setFile] = useState("");
+	// const [file, setFile] = useState("");
 	const [rating, setRating] = useState(0);
 
 	const [image, setImage] = useState("");
-	const [preview, setPreview] = useState("");
+	// const [preview, setPreview] = useState("");
 	const [uploading, setUploading] = useState(false);
 
 	useEffect(() => {
@@ -35,19 +35,19 @@ const ReviewForm = ({
 		setExpanded(true);
 	}
 
-	const handleSubmitFile = e => {
-		const file = e.target.files[0];
-		if (!preview) return;
-		previewFile(file);
-	};
+	// const handleSubmitFile = e => {
+	// 	const file = e.target.files[0];
+	// 	if (!preview) return;
+	// 	previewFile(file);
+	// };
 
-	const previewFile = file => {
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onloadend = () => {
-			setPreview(reader.result);
-		};
-	};
+	// const previewFile = file => {
+	// 	const reader = new FileReader();
+	// 	reader.readAsDataURL(file);
+	// 	reader.onloadend = () => {
+	// 		setPreview(reader.result);
+	// 	};
+	// };
 
 	// const uploadImage = async base64EncodedImage => {
 	// 	console.log(base64EncodedImage);
@@ -78,7 +78,7 @@ const ReviewForm = ({
 			const { data } = await axios.post("/api/upload", imageData, config);
 
 			//setNote({ ...note, avatar: data });
-			setFile(data);
+			setImage(data);
 
 			setUploading(false);
 		} catch (error) {
@@ -90,15 +90,17 @@ const ReviewForm = ({
 	const onSubmit = e => {
 		e.preventDefault();
 		//handleSubmitFile();
-		console.log(rating);
+		// console.log(rating);
+		// console.log("form" + image);
+
 		if (isNaN(rating) || (isNaN(rating) && note === "")) {
 			alert("please rate!");
 			return;
 		}
-		addComment(postId, { note, rating });
+		addComment(postId, { note, rating, image });
 		setNote("");
 		setRating(0);
-		setPreview("");
+		setImage("");
 	};
 
 	return (
@@ -135,18 +137,26 @@ const ReviewForm = ({
 						className="btn btn-dark my-1"
 						value="Submit"
 					/> */}
+
+					{/* <input
+					id="image-file"
+					type="file"
+					label="choose file"
+					onChange={uploadFileHandler}
+				></input> */}
+
 					<div className="img-preview-wrap">
 						<input
 							id="file-upload"
 							type="file"
 							name="image"
 							accept="image/*"
-							onChange={handleSubmitFile}
-							value={file}
+							onChange={uploadFileHandler}
 							className="file-upload-btn"
 							size="2"
 							onClick={expand}
 						/>
+
 						<label
 							aria-label="add image"
 							htmlFor="file-upload"
@@ -173,14 +183,21 @@ const ReviewForm = ({
 							{" "}
 							Add Review
 						</Button>
-						{preview && (
+						<img
+							src={"../" + image}
+							alt=""
+							className="img-preview"
+							style={{ height: "70px" }}
+						/>
+
+						{/* {preview && (
 							<img
 								src={preview}
 								alt="img-prev"
 								className="img-preview"
 								style={{ height: "70px" }}
 							/>
-						)}
+						)} */}
 					</div>
 				</div>
 			</form>

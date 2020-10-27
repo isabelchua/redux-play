@@ -47,6 +47,9 @@ const ShopSchema = new Schema({
 			avatar: {
 				type: String
 			},
+			image: {
+				type: String
+			},
 			rating: {
 				type: Number,
 				default: 0

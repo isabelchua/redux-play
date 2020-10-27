@@ -125,14 +125,14 @@ const EditProfile = ({
 					onChange={uploadFileHandler}
 				></input>
 
-				{preview && (
+				{/* {preview && (
 					<img
 						src={preview}
 						alt="img-prev"
 						className="img-preview"
 						style={{ height: "70px" }}
 					/>
-				)}
+				)} */}
 
 				<div className="form-group">
 					<input
