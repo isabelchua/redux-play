@@ -52,49 +52,38 @@ router.post(
 // @route    PUT api/posts
 // @desc     Edit a Shop
 // @access   Private
-router.put(
-	"/:id",
-	[auth, [check("text", "Text is required").not().isEmpty()]],
-
-	async (req, res) => {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array() });
-		}
-
-		const { text, phone, image } = req.body;
-
-		// Build shop object
-		const postFields = {};
-		if (text) postFields.text = text;
-		if (phone) postFields.phone = phone;
-		if (image) postFields.image = image;
-
-		try {
-			let post = await Post.findById(req.params.id);
-
-			if (!post) return res.status(404).json({ msg: "Post not found" });
-
-			// Make sure user owns shop
-			if (post.userid.toString() !== req.user.id) {
-				return res.status(401).json({ msg: "Not Authorized" });
-			}
-
-			// took time solving this one
-
-			post = await Post.findByIdAndUpdate(
-				req.params.id,
-				{ $set: postFields },
-				{ new: true }
-			);
-
-			res.json(post);
-		} catch (err) {
-			console.error(err.message);
-			res.status(500).send("Server Error");
-		}
+router.put("/:id", auth, async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json({ errors: errors.array() });
 	}
-);
+
+	const { text, phone, image } = req.body;
+
+	// Build shop object
+	const postFields = {};
+	if (text) postFields.text = text;
+	if (phone) postFields.phone = phone;
+	if (image) postFields.image = image;
+
+	try {
+		let post = await Post.findById(req.params.id);
+		if (!post) return res.status(404).json({ msg: "Post not found" });
+
+		// took time solving this one
+
+		post = await Post.findByIdAndUpdate(
+			req.params.id,
+			{ $set: postFields },
+			{ new: true }
+		);
+
+		res.json(post);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send("Server Error");
+	}
+});
 
 // @route    GET api/posts
 // @desc     Get all posts
