@@ -9,7 +9,7 @@ const ReviewItem = ({
 	addLike,
 	removeLike,
 	postId,
-	comment: { _id, text, name, avatar, user, likes, date, rating, location },
+	comment: { _id, note, name, avatar, user, likes, date, rating, location },
 	auth,
 	deleteComment
 }) => {
@@ -47,7 +47,7 @@ const ReviewItem = ({
 				</div>
 			</div>
 			<div className="post-content">
-				<p className="review-text">{text}</p>
+				<p className="review-text">{note}</p>
 
 				<div className="review-bottom">
 					<div className="review-bottom-left">

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { Fragment, useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -15,6 +16,10 @@ const CreateProfile = ({ createProfile, history }) => {
 		youtube: "",
 		instagram: ""
 	});
+
+	const [image, setImage] = useState("");
+	const [preview, setPreview] = useState("");
+	const [uploading, setUploading] = useState(false);
 
 	const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
@@ -37,10 +42,53 @@ const CreateProfile = ({ createProfile, history }) => {
 		createProfile(formData, history);
 	};
 
+	const uploadFileHandler = async e => {
+		const file = e.target.files[0];
+		const imageData = new FormData();
+		imageData.append("image", file);
+		setUploading(true);
+
+		try {
+			const config = {
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			};
+
+			const { data } = await axios.post("/api/upload", imageData, config);
+
+			//setImage(data);
+
+			setFormData({ ...formData, avatar: data });
+
+			setUploading(false);
+		} catch (error) {
+			console.error(error);
+			setUploading(false);
+		}
+	};
+
 	return (
 		<Fragment>
 			<h1 className="large text-primary">Create Your Profile</h1>
 			<form className="form" onSubmit={e => onSubmit(e)}>
+				<p>Add your avatar</p>
+				<input
+					id="image-file"
+					type="file"
+					label="choose file"
+					onChange={uploadFileHandler}
+				></input>
+
+				{preview && (
+					<img
+						src={preview}
+						alt="img-prev"
+						className="img-preview"
+						style={{ height: "70px" }}
+					/>
+				)}
+
 				<div className="form-group">
 					<input
 						type="text"
@@ -49,10 +97,7 @@ const CreateProfile = ({ createProfile, history }) => {
 						value={website}
 						onChange={e => onChange(e)}
 					/>
-					<small className="form-text">Your website</small>
 				</div>
-
-				{/* ADD AVATAR UPLOAD */}
 				<div className="form-group">
 					<input
 						type="text"
@@ -61,19 +106,15 @@ const CreateProfile = ({ createProfile, history }) => {
 						value={location}
 						onChange={e => onChange(e)}
 					/>
-					<small className="form-text">Your location</small>
 				</div>
 
 				<div className="form-group">
 					<textarea
-						placeholder="About yourself"
+						placeholder="Tell us about yourself"
 						name="bio"
 						value={bio}
 						onChange={e => onChange(e)}
 					/>
-					<small className="form-text">
-						Tell us a little about yourself
-					</small>
 				</div>
 
 				<div className="my-2">
@@ -82,9 +123,8 @@ const CreateProfile = ({ createProfile, history }) => {
 						type="button"
 						className="btn btn-light"
 					>
-						Add Social Network Links
+						Add Your Social Network
 					</button>
-					<span>Optional</span>
 				</div>
 
 				{displaySocialInputs && (

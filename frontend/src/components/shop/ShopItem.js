@@ -4,23 +4,23 @@ import Moment from "react-moment";
 import { connect } from "react-redux";
 import { deletePost } from "../../actions/post";
 
-const PostItem = ({
+const ShopItem = ({
 	deletePost,
 	auth,
-	post: { _id, shop, name, avatar, user, comments, date, address, image }
+	post: { _id, shopname, name, avatar, user, reviews, date, address, image }
 }) => {
 	return (
 		<Link to={`/posts/${_id}`} className="shop-card">
 			<div className="card">
-				<h3>{shop}</h3>
-				<img src={image} alt="shop" width="150" height="150" />
+				<h3>{shopname}</h3>
+				<img src={image} alt={shopname} width="150" height="150" />
 
 				<p>{address && address}</p>
 
 				<span className="comment-count">
-					{comments.length > 1
-						? comments.length + " Reviews"
-						: comments.length === 1
+					{reviews.length > 1
+						? reviews.length + " Reviews"
+						: reviews.length === 1
 						? "1 Review"
 						: "Not Yet Reviewed"}
 				</span>
@@ -40,4 +40,4 @@ const mapStateToProps = state => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps, { deletePost })(PostItem);
+export default connect(mapStateToProps, { deletePost })(ShopItem);

@@ -18,12 +18,12 @@ const ShopBanner = ({
 	auth,
 	post: {
 		_id,
-		shop,
+		shopname,
 		name,
 		avatar,
 		user,
 		likes,
-		comments,
+		reviews,
 		date,
 		short,
 		image,
@@ -55,7 +55,7 @@ const ShopBanner = ({
 	return (
 		<div className="shop-banner">
 			<div className="shop-details">
-				<h2>{shop}</h2>
+				<h2>{shopname}</h2>
 				{/* <p>{short && short}</p> */}
 				<strong>{short}</strong>
 				<img
@@ -73,7 +73,7 @@ const ShopBanner = ({
 				</p>
 				<div className="wrap">
 					<Rating name="read-only" value={4.5} readOnly precision={0.5} />
-					{comments.length} Reviews
+					{reviews.length} Reviews
 				</div>
 
 				<div className="shop-button">

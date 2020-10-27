@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import PostItem from "./PostItem";
+import ShopItem from "./ShopItem";
 import { getPosts } from "../../actions/post";
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Shops = ({ getPosts, post: { posts, loading } }) => {
 	useEffect(() => {
 		getPosts();
 	}, [getPosts]);
@@ -15,7 +15,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 		<Fragment>
 			<div className="home-card">
 				{posts.map(post => (
-					<PostItem key={post._id} post={post} />
+					<ShopItem key={post._id} post={post} />
 				))}
 			</div>
 		</Fragment>
@@ -26,4 +26,4 @@ const mapStateToProps = state => ({
 	post: state.post
 });
 
-export default connect(mapStateToProps, { getPosts })(Posts);
+export default connect(mapStateToProps, { getPosts })(Shops);

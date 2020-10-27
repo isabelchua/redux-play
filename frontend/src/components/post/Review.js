@@ -8,7 +8,7 @@ import ShopBanner from "../shop/ShopBanner";
 import Footer from "../layout/Footer";
 import GuestMessage from "../layout/GuestMessage";
 
-const Post = ({
+const Review = ({
 	getPost,
 	post: { post, loading },
 	auth: { isAuthenticated },
@@ -36,7 +36,7 @@ const Post = ({
 					<p className="right">Sort by Date</p>
 				</div>
 				<div className="comments">
-					{post.comments.map(comment => (
+					{post.reviews.map(comment => (
 						<ReviewItem
 							key={comment._id}
 							comment={comment}
@@ -55,4 +55,4 @@ const mapStateToProps = state => ({
 	post: state.post
 });
 
-export default connect(mapStateToProps, { getPost })(Post);
+export default connect(mapStateToProps, { getPost })(Review);

@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
-// const { removeLike } = require("../../client/src/actions/post");
 const auth = require("../../middleware/auth");
 
 const cloudinary = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
 
-const Post = require("../../models/Post");
+const Shop = require("../../models/Shop");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
@@ -16,7 +15,7 @@ const User = require("../../models/User");
 // @access   Private
 router.post(
 	"/",
-	[auth, [check("shop", "Shop Name is required").not().isEmpty()]],
+	[auth, [check("shopname", "Shop Name is required").not().isEmpty()]],
 
 	async (req, res) => {
 		const errors = validationResult(req);
@@ -27,8 +26,8 @@ router.post(
 		try {
 			const user = await User.findById(req.user.id).select("-password");
 
-			const newPost = new Post({
-				shop: req.body.shop,
+			const newShop = new Shop({
+				shopname: req.body.shopname,
 				address: req.body.address,
 				description: req.body.description,
 				phone: req.body.phone,
@@ -39,9 +38,9 @@ router.post(
 				image: req.body.image
 			});
 
-			const post = await newPost.save();
+			const shop = await newShop.save();
 
-			res.json(post);
+			res.json(shop);
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send("Server Error");
@@ -58,11 +57,11 @@ router.put("/:id", auth, async (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	}
 
-	const { shop, phone, image, description, short, address } = req.body;
+	const { shopname, phone, image, description, short, address } = req.body;
 
 	// Build shop object
 	const postFields = {};
-	if (shop) postFields.shop = shop;
+	if (shopname) postFields.shopname = shopname;
 	if (phone) postFields.phone = phone;
 	if (image) postFields.image = image;
 	if (description) postFields.description = description;
@@ -70,18 +69,18 @@ router.put("/:id", auth, async (req, res) => {
 	if (address) postFields.address = address;
 
 	try {
-		let post = await Post.findById(req.params.id);
-		if (!post) return res.status(404).json({ msg: "Post not found" });
+		let shop = await Shop.findById(req.params.id);
+		if (!shop) return res.status(404).json({ msg: "Shop not found" });
 
 		// took time solving this one
 
-		post = await Post.findByIdAndUpdate(
+		shop = await Shop.findByIdAndUpdate(
 			req.params.id,
 			{ $set: postFields },
 			{ new: true }
 		);
 
-		res.json(post);
+		res.json(shop);
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send("Server Error");
@@ -93,8 +92,8 @@ router.put("/:id", auth, async (req, res) => {
 // @access   Public
 router.get("/", async (req, res) => {
 	try {
-		const posts = await Post.find().sort({ date: -1 });
-		res.json(posts);
+		const shops = await Shop.find().sort({ date: -1 });
+		res.json(shops);
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send("Server Error");
@@ -106,45 +105,45 @@ router.get("/", async (req, res) => {
 // @access   Public
 router.get("/:id", async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
+		const shop = await Shop.findById(req.params.id);
 
-		if (!post) {
-			return res.status(404).json({ msg: "Post not found" });
+		if (!shop) {
+			return res.status(404).json({ msg: "Shop not found" });
 		}
 
-		res.json(post);
+		res.json(shop);
 	} catch (err) {
 		console.error(err.message);
 		if (err.kind === "ObjectId") {
-			return res.status(404).json({ msg: "Post not found" });
+			return res.status(404).json({ msg: "Shop not found" });
 		}
 		res.status(500).send("Server Error");
 	}
 });
 
 // @route    DELETE api/posts/:id
-// @desc     Delete a post
+// @desc     Delete a shop
 // @access   Private
 router.delete("/:id", auth, async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
+		const shop = await Shop.findById(req.params.id);
 
-		if (!post) {
-			return res.status(404).json({ msg: "Post not found" });
+		if (!shop) {
+			return res.status(404).json({ msg: "Shop not found" });
 		}
 
 		// Check user
-		if (post.user.toString() !== req.user.id) {
+		if (shop.user.toString() !== req.user.id) {
 			return res.status(401).json({ msg: "User not authorized" });
 		}
 
-		await post.remove();
+		await shop.remove();
 
-		res.json({ msg: "Post removed" });
+		res.json({ msg: "Shop removed" });
 	} catch (err) {
 		console.error(err.message);
 		if (err.kind === "ObjectId") {
-			return res.status(404).json({ msg: "Post not found" });
+			return res.status(404).json({ msg: "Shop not found" });
 		}
 		res.status(500).send("Server Error");
 	}
@@ -155,9 +154,9 @@ router.delete("/:id", auth, async (req, res) => {
 // @access   Private
 router.put("/like/:id/:review_id", auth, async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
+		const shop = await Shop.findById(req.params.id);
 		// Pull out Review
-		const comment = post.comments.find(
+		const comment = shop.reviews.find(
 			comment => comment.id === req.params.review_id
 		);
 
@@ -172,14 +171,14 @@ router.put("/like/:id/:review_id", auth, async (req, res) => {
 			comment.likes.filter(like => like.user.toString() === req.user.id)
 				.length > 0
 		) {
-			return res.status(400).json({ msg: "Post already liked" });
+			return res.status(400).json({ msg: "Shop already liked" });
 		}
 		//console.log(comment.likes);
 		comment.likes.unshift({ user: req.user.id });
 		//console.log(comment.likes);
 
-		await post.save();
-		//res.json(post.likes);
+		await shop.save();
+
 		res.json(comment.likes);
 	} catch (err) {
 		console.error(err.message);
@@ -192,9 +191,9 @@ router.put("/like/:id/:review_id", auth, async (req, res) => {
 // @access   Private
 router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
+		const shop = await Shop.findById(req.params.id);
 		// Pull out Review
-		const comment = post.comments.find(
+		const comment = shop.reviews.find(
 			comment => comment.id === req.params.review_id
 		);
 
@@ -208,7 +207,7 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 			comment.likes.filter(like => like.user.toString() === req.user.id)
 				.length === 0
 		) {
-			return res.status(400).json({ msg: "Post already liked" });
+			return res.status(400).json({ msg: "Shop already liked" });
 		}
 
 		// Get remove index
@@ -222,8 +221,8 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 
 		//console.log(comment.likes);
 
-		await post.save();
-		//res.json(post.likes);
+		await shop.save();
+
 		res.json(comment.likes);
 	} catch (err) {
 		console.error(err.message);
@@ -232,18 +231,18 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 });
 
 // @route    PUT api/posts/unlike/:id
-// @desc     Like a post
+// @desc     Like a shop
 // @access   Private
 router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
+		const shop = await Shop.findById(req.params.id);
 
 		// Check if the post has already been liked
 		if (
-			post.likes.filter(like => like.user.toString() === req.user.id)
+			shop.likes.filter(like => like.user.toString() === req.user.id)
 				.length === 0
 		) {
-			return res.status(400).json({ msg: "Post has not yet been liked" });
+			return res.status(400).json({ msg: "Shop has not yet been liked" });
 		}
 
 		// Get remove index
@@ -251,11 +250,11 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 			.map(like => like.user.toString())
 			.indexOf(req.user.id);
 
-		post.likes.splice(removeIndex, 1);
+		shop.likes.splice(removeIndex, 1);
 
-		await post.save();
+		await shop.save();
 
-		res.json(post.likes);
+		res.json(shop.likes);
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send("Server Error");
@@ -267,7 +266,7 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 // @access   Private
 router.post(
 	"/comment/:id",
-	[auth, [check("text", "Review is required").not().isEmpty()]],
+	[auth, [check("note", "Review is required").not().isEmpty()]],
 	upload.single("image"),
 	async (req, res) => {
 		const errors = validationResult(req);
@@ -282,7 +281,7 @@ router.post(
 
 		try {
 			const user = await User.findById(req.user.id).select("-password");
-			const post = await Post.findById(req.params.id);
+			const shop = await Shop.findById(req.params.id);
 
 			// Upload image to cloudinary
 			const fileStr = req.file.path;
@@ -301,7 +300,7 @@ router.post(
 
 			const newComment = {
 				rating: req.body.rating,
-				text: req.body.text,
+				note: req.body.note,
 				name: user.name,
 				avatar: userProf.avatar,
 				user: req.user.id,
@@ -310,11 +309,11 @@ router.post(
 				cloud_id: result.public_id
 			};
 
-			post.comments.unshift(newComment);
+			shop.reviews.unshift(newComment);
 
-			await post.save();
+			await shop.save();
 
-			res.json(post.comments);
+			res.json(shop.reviews);
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send("Server Error");
@@ -327,10 +326,10 @@ router.post(
 // @access   Private
 router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
+		const shop = await Shop.findById(req.params.id);
 
-		// Pull out comment
-		const comment = post.comments.find(
+		// Pull out review
+		const comment = shop.reviews.find(
 			comment => comment.id === req.params.comment_id
 		);
 
@@ -345,15 +344,15 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
 		}
 
 		// Get remove index
-		const removeIndex = post.comments
+		const removeIndex = shop.reviews
 			.map(comment => comment.user.toString())
 			.indexOf(req.user.id);
 
-		post.comments.splice(removeIndex, 1);
+		shop.reviews.splice(removeIndex, 1);
 
-		await post.save();
+		await shop.save();
 
-		res.json(post.comments);
+		res.json(shop.reviews);
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send("Server Error");

@@ -14,7 +14,7 @@ const EditShop = ({
 	history
 }) => {
 	const [shop, setShop] = useState({
-		shop: "",
+		shopname: "",
 		description: "",
 		phone: "",
 		address: "",
@@ -33,7 +33,7 @@ const EditShop = ({
 		if (post !== null) {
 			setShop({
 				address: loading || !post.address ? "" : post.address,
-				shop: loading || !post.shop ? "" : post.shop,
+				shopname: loading || !post.shopname ? "" : post.shopname,
 				description: loading || !post.description ? "" : post.description,
 				phone: loading || !post.phone ? "" : post.phone,
 				short: loading || !post.short ? "" : post.short,
@@ -103,9 +103,9 @@ const EditShop = ({
 					<form className="form" onSubmit={e => onSubmit(e)}>
 						<input
 							type="text"
-							name="shop"
+							name="shopname"
 							placeholder="Enter restaurant name"
-							value={shop.shop}
+							value={shop.shopname}
 							onChange={e => onChange(e)}
 							required
 						/>
@@ -127,13 +127,6 @@ const EditShop = ({
 
 						<input
 							type="text"
-							name="description"
-							placeholder="Enter Description"
-							value={shop.description}
-							onChange={e => onChange(e)}
-						/>
-						<input
-							type="text"
 							name="phone"
 							placeholder="Enter Phone"
 							value={shop.phone}
@@ -146,11 +139,18 @@ const EditShop = ({
 							value={shop.address}
 							onChange={e => onChange(e)}
 						/>
+						<textarea
+							type="text"
+							name="description"
+							placeholder="Enter Description"
+							value={shop.description}
+							onChange={e => onChange(e)}
+						/>
 						<input
 							type="text"
 							name="short"
 							placeholder="Enter Short Description"
-							value={shop.address}
+							value={shop.short}
 							onChange={e => onChange(e)}
 						/>
 						<input type="submit" className="btn" value="Submit" />

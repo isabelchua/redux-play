@@ -17,7 +17,7 @@ const ReviewForm = ({
 	auth: { user },
 	profile: { profile }
 }) => {
-	const [text, setText] = useState("");
+	const [note, setNote] = useState("");
 	const [isExpanded, setExpanded] = useState(false);
 	const [file, setFile] = useState("");
 	const [rating, setRating] = useState(0);
@@ -62,12 +62,12 @@ const ReviewForm = ({
 		e.preventDefault();
 		handleSubmitFile();
 		console.log(rating);
-		if (isNaN(rating) || (isNaN(rating) && text === "")) {
+		if (isNaN(rating) || (isNaN(rating) && note === "")) {
 			alert("please rate!");
 			return;
 		}
-		addComment(postId, { text, rating });
-		setText("");
+		addComment(postId, { note, rating });
+		setNote("");
 		setRating(0);
 		setPreview("");
 	};
@@ -94,11 +94,11 @@ const ReviewForm = ({
 					/>
 
 					<textarea
-						name="text"
+						name="note"
 						cols="60"
 						placeholder="Write a review"
-						value={text}
-						onChange={e => setText(e.target.value)}
+						value={note}
+						onChange={e => setNote(e.target.value)}
 						rows={isExpanded ? 3 : 1}
 						onClick={expand}
 						required

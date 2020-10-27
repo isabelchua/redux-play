@@ -1,16 +1,17 @@
 import axios from "axios";
 import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/post";
+import { TextField } from "@material-ui/core";
 
 const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 	const [shop, setShop] = useState({
-		shop: "",
+		shopname: "",
 		description: "",
 		phone: "",
 		address: "",
-		image: ""
+		image: "",
+		short: ""
 	});
 	const [image, setImage] = useState("");
 	const [preview, setPreview] = useState("");
@@ -59,19 +60,20 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							e.preventDefault();
 							addPost(shop);
 							setShop({
-								shop: "",
+								shopname: "",
 								description: "",
 								phone: "",
 								address: "",
-								image: ""
+								image: "",
+								short: ""
 							});
 						}}
 					>
 						<input
 							type="text"
-							name="shop"
+							name="shopname"
 							placeholder="Enter restaurant name"
-							value={shop.shop}
+							value={shop.shopname}
 							onChange={e => onChange(e)}
 							required
 						/>
@@ -93,13 +95,6 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 
 						<input
 							type="text"
-							name="description"
-							placeholder="Enter Description"
-							value={shop.description}
-							onChange={e => onChange(e)}
-						/>
-						<input
-							type="text"
 							name="phone"
 							placeholder="Enter Phone"
 							value={shop.phone}
@@ -112,16 +107,26 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							value={shop.address}
 							onChange={e => onChange(e)}
 						/>
+						<textarea
+							type="text"
+							name="description"
+							placeholder="Enter Description"
+							value={shop.description}
+							onChange={e => onChange(e)}
+						/>
+						<input
+							type="text"
+							name="short"
+							placeholder="Enter Short Description"
+							value={shop.short}
+							onChange={e => onChange(e)}
+						/>
 						<input type="submit" className="btn" value="Submit" />
 					</form>
 				</div>
 			)}
 		</Fragment>
 	);
-};
-
-ShopForm.propTypes = {
-	addPost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

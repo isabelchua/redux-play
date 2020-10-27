@@ -9,12 +9,13 @@ import EditProfile from "../pages/profile-forms/EditProfile";
 
 import Profiles from "../pages/profiles/Profiles";
 import Profile from "../profile/Profile";
-import Posts from "../shop/Posts";
+//import Posts from "../shop/Shops";
 import PrivateRoute from "../routing/PrivateRoute";
 import NotFound from "../layout/NotFound";
 import AddShop from "../shop/AddShop";
 import EditShop from "../shop/EditShop";
 import Footer from "../layout/Footer";
+import Shops from "../shop/Shops";
 
 const Routes = () => {
 	return (
@@ -40,7 +41,7 @@ const Routes = () => {
 						component={EditProfile}
 					/>
 
-					<Route exact path="/posts" component={Posts} />
+					<Route exact path="/posts" component={Shops} />
 					<Route component={NotFound} />
 				</Switch>
 			</div>

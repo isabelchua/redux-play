@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/pages/Landing";
 import Routes from "./components/routing/Routes";
-import Post from "./components/post/Post";
 
 // Redux
 import { Provider } from "react-redux";
@@ -12,6 +11,7 @@ import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 
 import "./App.scss";
+import Review from "./components/post/Review";
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -29,7 +29,7 @@ const App = () => {
 					<Navbar />
 					<Switch>
 						<Route exact path="/" component={Landing} />
-						<Route exact path="/posts/:id" component={Post} />
+						<Route exact path="/posts/:id" component={Review} />
 
 						<Route component={Routes} />
 					</Switch>
