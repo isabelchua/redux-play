@@ -7,12 +7,12 @@ import { deletePost } from "../../actions/post";
 const PostItem = ({
 	deletePost,
 	auth,
-	post: { _id, text, name, avatar, user, comments, date, address, image }
+	post: { _id, shop, name, avatar, user, comments, date, address, image }
 }) => {
 	return (
 		<Link to={`/posts/${_id}`} className="shop-card">
 			<div className="card">
-				<h3>{text}</h3>
+				<h3>{shop}</h3>
 				<img src={image} alt="shop" width="150" height="150" />
 
 				<p>{address && address}</p>
@@ -26,13 +26,7 @@ const PostItem = ({
 				</span>
 
 				{auth.user && !auth.loading && user === auth.user._id && (
-					<button
-						onClick={e => deletePost(_id)}
-						type="button"
-						className="btn btn-danger"
-					>
-						<i className="fas fa-times" /> Delete Shop
-					</button>
+					<p className="date">You created this Shop</p>
 				)}
 				<p className="date">
 					Added on <Moment format="MM/DD/YYYY">{date}</Moment>

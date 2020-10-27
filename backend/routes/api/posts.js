@@ -16,7 +16,7 @@ const User = require("../../models/User");
 // @access   Private
 router.post(
 	"/",
-	[auth, [check("text", "Text is required").not().isEmpty()]],
+	[auth, [check("shop", "Shop Name is required").not().isEmpty()]],
 
 	async (req, res) => {
 		const errors = validationResult(req);
@@ -28,7 +28,7 @@ router.post(
 			const user = await User.findById(req.user.id).select("-password");
 
 			const newPost = new Post({
-				text: req.body.text,
+				shop: req.body.shop,
 				address: req.body.address,
 				description: req.body.description,
 				phone: req.body.phone,
@@ -58,11 +58,11 @@ router.put("/:id", auth, async (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	}
 
-	const { text, phone, image, description, short, address } = req.body;
+	const { shop, phone, image, description, short, address } = req.body;
 
 	// Build shop object
 	const postFields = {};
-	if (text) postFields.text = text;
+	if (shop) postFields.shop = shop;
 	if (phone) postFields.phone = phone;
 	if (image) postFields.image = image;
 	if (description) postFields.description = description;
@@ -267,7 +267,7 @@ router.put("/unlike/:id/:review_id", auth, async (req, res) => {
 // @access   Private
 router.post(
 	"/comment/:id",
-	[auth, [check("text", "Text is required").not().isEmpty()]],
+	[auth, [check("text", "Review is required").not().isEmpty()]],
 	upload.single("image"),
 	async (req, res) => {
 		const errors = validationResult(req);

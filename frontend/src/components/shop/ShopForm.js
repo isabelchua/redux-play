@@ -6,7 +6,7 @@ import { addPost } from "../../actions/post";
 
 const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 	const [shop, setShop] = useState({
-		text: "",
+		shop: "",
 		description: "",
 		phone: "",
 		address: "",
@@ -59,7 +59,7 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							e.preventDefault();
 							addPost(shop);
 							setShop({
-								text: "",
+								shop: "",
 								description: "",
 								phone: "",
 								address: "",
@@ -69,9 +69,9 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 					>
 						<input
 							type="text"
-							name="text"
+							name="shop"
 							placeholder="Enter restaurant name"
-							value={shop.text}
+							value={shop.shop}
 							onChange={e => onChange(e)}
 							required
 						/>

@@ -18,7 +18,7 @@ const ShopBanner = ({
 	auth,
 	post: {
 		_id,
-		text,
+		shop,
 		name,
 		avatar,
 		user,
@@ -55,7 +55,7 @@ const ShopBanner = ({
 	return (
 		<div className="shop-banner">
 			<div className="shop-details">
-				<h2>{text}</h2>
+				<h2>{shop}</h2>
 				{/* <p>{short && short}</p> */}
 				<strong>{short}</strong>
 				<img

@@ -14,7 +14,7 @@ const EditShop = ({
 	history
 }) => {
 	const [shop, setShop] = useState({
-		text: "",
+		shop: "",
 		description: "",
 		phone: "",
 		address: "",
@@ -33,7 +33,7 @@ const EditShop = ({
 		if (post !== null) {
 			setShop({
 				address: loading || !post.address ? "" : post.address,
-				text: loading || !post.text ? "" : post.text,
+				shop: loading || !post.shop ? "" : post.shop,
 				description: loading || !post.description ? "" : post.description,
 				phone: loading || !post.phone ? "" : post.phone,
 				short: loading || !post.short ? "" : post.short,
@@ -103,9 +103,9 @@ const EditShop = ({
 					<form className="form" onSubmit={e => onSubmit(e)}>
 						<input
 							type="text"
-							name="text"
+							name="shop"
 							placeholder="Enter restaurant name"
-							value={shop.text}
+							value={shop.shop}
 							onChange={e => onChange(e)}
 							required
 						/>
@@ -143,6 +143,13 @@ const EditShop = ({
 							type="text"
 							name="address"
 							placeholder="Enter Address"
+							value={shop.address}
+							onChange={e => onChange(e)}
+						/>
+						<input
+							type="text"
+							name="short"
+							placeholder="Enter Short Description"
 							value={shop.address}
 							onChange={e => onChange(e)}
 						/>
