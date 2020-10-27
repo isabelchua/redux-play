@@ -136,8 +136,8 @@ export const editPost = (formData, id, history) => async dispatch => {
 		}
 	};
 
-	console.log(formData);
-	console.log(id);
+	// console.log(formData);
+	// console.log(id);
 
 	try {
 		const res = await axios.put(`/api/posts/${id}`, formData, config);

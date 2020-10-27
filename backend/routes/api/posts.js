@@ -58,13 +58,16 @@ router.put("/:id", auth, async (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	}
 
-	const { text, phone, image } = req.body;
+	const { text, phone, image, description, short, address } = req.body;
 
 	// Build shop object
 	const postFields = {};
 	if (text) postFields.text = text;
 	if (phone) postFields.phone = phone;
 	if (image) postFields.image = image;
+	if (description) postFields.description = description;
+	if (short) postFields.short = short;
+	if (address) postFields.address = address;
 
 	try {
 		let post = await Post.findById(req.params.id);
