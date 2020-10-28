@@ -187,7 +187,7 @@ const ReviewForm = ({
 							src={"../" + image}
 							alt=""
 							className="img-preview"
-							style={{ height: "70px" }}
+							// style={{ height: "70px" }}
 						/>
 
 						{/* {preview && (

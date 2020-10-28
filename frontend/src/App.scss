@@ -122,6 +122,7 @@ textarea:focus {
 		padding: 10px 15px;
 		border: 1px solid #ccc;
 		border-radius: $curve;
+		width: 100%;
 	}
 }
 
@@ -336,10 +337,17 @@ textarea:focus {
 
 			.post-content a {
 				margin: 10px 0;
+
 				p {
 					margin: 25px 0;
 					line-height: 160%;
 				}
+			}
+			.post-content img {
+				object-fit: cover;
+				height: 140px;
+				width: 170px;
+				border-radius: $curve;
 			}
 		}
 		.footer {
@@ -411,7 +419,7 @@ textarea:focus {
 	.img-preview-wrap {
 		flex: 1 1 auto;
 		height: 70px;
-		width: 400px;
+		width: 120px;
 		display: flex;
 		flex-direction: row;
 	}
@@ -451,19 +459,18 @@ textarea:focus {
 		z-index: 10;
 	}
 
-	.img-preview {
-		display: inline-block;
-		width: 100px;
-		border-radius: 8px;
-		margin-left: 20px;
-	}
-
 	textarea {
 		display: flex;
 		border: none;
 		padding: 10px 0 0px;
 		//height: 40px;
 		// width: 100%;
+	}
+
+	.img-preview {
+		object-fit: cover;
+		margin-left: 30px;
+		border-radius: 7px;
 	}
 
 	input:focus {

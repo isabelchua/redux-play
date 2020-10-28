@@ -63,8 +63,8 @@ const ReviewItem = ({
 				<img
 					src={"../" + image}
 					alt=""
-					className="img-preview"
-					style={{ height: "70px" }}
+					// className="img-preview"
+					// style={{ height: "70px" }}
 				/>
 
 				<div className="review-bottom">
