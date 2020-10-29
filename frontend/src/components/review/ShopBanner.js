@@ -9,13 +9,10 @@ import { deletePost } from "../../actions/post";
 
 import { useHistory, Link } from "react-router-dom";
 
-import foodImage from "../../img/food.jpg";
-
 const ShopBanner = ({
-	addLike,
-	removeLike,
 	deletePost,
 	auth,
+	review: { rating },
 	post: {
 		_id,
 		shopname,
@@ -35,45 +32,36 @@ const ShopBanner = ({
 }) => {
 	let history = useHistory();
 
-	// useEffect(() => {
-	// 	history.push("/");
-	// }, [deletePost]);
+	// const editShop = async e => {
+	// 	try {
+	// 		// await editPost(_id);
+	// 		history.push("/");
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// };
 
-	// if (deletePost) {
-	// 	<Redirect to="/shops" />;
-	// }
-
-	const editShop = async e => {
-		try {
-			// await editPost(_id);
-			history.push("/");
-		} catch (err) {
-			console.error(err);
-		}
-	};
-
+	if (rating) {
+		console.log(rating);
+	}
+	console.log(rating);
 	return (
 		<div className="shop-banner">
 			<div className="shop-details">
 				<h2>{shopname}</h2>
-				{/* <p>{short && short}</p> */}
 				<strong>{short}</strong>
 				<img
-					// src={foodImage}
 					src={"../" + image}
 					style={{ width: "250px", margin: "10px 0", display: "block" }}
 					alt="Food Banner"
 				/>
-				<p>{phone} (415) 555-1515</p>
-				<p>{address} 2974 Westheimer Santa Ana, Illinois 85633</p>
-				<p>
-					{description}
-					Located in the heart of the City, this place is known for good
-					food, and good service!
-				</p>
+				<p>{phone}</p>
+				<p>{address} </p>
+				<p>{description}</p>
 				<div className="wrap">
 					<Rating name="read-only" value={4.5} readOnly precision={0.5} />
 					{reviews.length} Reviews
+					{/* {rating[0] && rating[0]} */}
 				</div>
 
 				<div className="shop-button">
@@ -102,25 +90,17 @@ const ShopBanner = ({
 
 				{auth.user && !auth.loading && user === auth.user._id && (
 					<>
-						{/* <button
+						<button
 							// onClick={e => deletePost(_id)}
-							onClick={deleteShop}
+							onClick={deletePost}
 							type="button"
 							className="btn btn-danger"
 						>
 							<i className="fas fa-times" /> Delete Shop
-						</button> */}
+						</button>
 						<Link to={`/edit-shop/${_id}`} className="btn btn-dark">
 							Edit Shop
 						</Link>
-						{/* <button
-							// onClick={e => deletePost(_id)}
-							onClick={editShop}
-							type="button"
-							className="btn btn-danger"
-						>
-							<i className="fas fa-times" /> Edit Shop
-						</button> */}
 					</>
 				)}
 			</div>

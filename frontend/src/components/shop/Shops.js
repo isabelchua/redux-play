@@ -13,6 +13,7 @@ const Shops = ({ getPosts, post: { posts, loading } }) => {
 		<Spinner />
 	) : (
 		<Fragment>
+			<h2>Food Places</h2>
 			<div className="home-card">
 				{posts.map(post => (
 					<ShopItem key={post._id} post={post} />

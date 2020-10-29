@@ -69,6 +69,7 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							});
 						}}
 					>
+						<span>Restaurant Name:</span>
 						<input
 							type="text"
 							name="shopname"
@@ -77,13 +78,13 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							onChange={e => onChange(e)}
 							required
 						/>
+						<span>Image:</span>
 						<input
 							id="image-file"
 							type="file"
 							label="choose file"
 							onChange={uploadFileHandler}
 						></input>
-
 						{preview && (
 							<img
 								src={preview}
@@ -92,7 +93,7 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 								style={{ height: "70px" }}
 							/>
 						)}
-
+						<span>Phone:</span>
 						<input
 							type="text"
 							name="phone"
@@ -100,6 +101,7 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							value={shop.phone}
 							onChange={e => onChange(e)}
 						/>
+						<span>Address:</span>
 						<input
 							type="text"
 							name="address"
@@ -107,6 +109,7 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							value={shop.address}
 							onChange={e => onChange(e)}
 						/>
+						<span>Description:</span>
 						<textarea
 							type="text"
 							name="description"
@@ -114,6 +117,7 @@ const ShopForm = ({ auth: { isAuthenticated, loading }, addPost }) => {
 							value={shop.description}
 							onChange={e => onChange(e)}
 						/>
+						<span>Short Description:</span>
 						<input
 							type="text"
 							name="short"

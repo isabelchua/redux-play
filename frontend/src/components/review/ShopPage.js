@@ -7,8 +7,9 @@ import ReviewItem from "./ReviewItem";
 import ShopBanner from "./ShopBanner";
 import Footer from "../layout/Footer";
 import GuestMessage from "../layout/GuestMessage";
+import StarTotal from "./StarTotal";
 
-const Review = ({
+const ShopPage = ({
 	getPost,
 	post: { post, loading },
 	auth: { isAuthenticated },
@@ -24,7 +25,13 @@ const Review = ({
 	) : (
 		<div className="main-wrap">
 			<div className="col1">
-				<ShopBanner post={post} />
+				<ShopBanner post={post} review={post.reviews} />
+				{/* {post.reviews.map(review => (
+					<StarTotal review={review} />
+				))} */}
+				{post.reviews.map(review => (
+					<StarTotal review={review} />
+				))}
 			</div>
 			<div className="col2">
 				{isAuthenticated ? (
@@ -55,4 +62,4 @@ const mapStateToProps = state => ({
 	post: state.post
 });
 
-export default connect(mapStateToProps, { getPost })(Review);
+export default connect(mapStateToProps, { getPost })(ShopPage);
