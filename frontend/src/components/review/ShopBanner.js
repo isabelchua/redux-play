@@ -8,12 +8,14 @@ import ShareIcon from "@material-ui/icons/Share";
 import { deletePost } from "../../actions/post";
 
 import { useHistory, Link } from "react-router-dom";
+import StarTotal from "./StarTotal";
 
 const ShopBanner = ({
 	deletePost,
 	auth,
 	review: { rating },
 	post: {
+		post,
 		_id,
 		shopname,
 		name,
@@ -26,7 +28,8 @@ const ShopBanner = ({
 		image,
 		description,
 		address,
-		phone
+		phone,
+		loading
 	},
 	showActions
 }) => {
@@ -41,10 +44,6 @@ const ShopBanner = ({
 	// 	}
 	// };
 
-	if (rating) {
-		console.log(rating);
-	}
-	console.log(rating);
 	return (
 		<div className="shop-banner">
 			<div className="shop-details">
@@ -59,7 +58,8 @@ const ShopBanner = ({
 				<p>{address} </p>
 				<p>{description}</p>
 				<div className="wrap">
-					<Rating name="read-only" value={4.5} readOnly precision={0.5} />
+					<StarTotal review={post} />
+					{/* <Rating name="read-only" value={4.5} readOnly precision={0.5} /> */}
 					{reviews.length} Reviews
 					{/* {rating[0] && rating[0]} */}
 				</div>

@@ -24,9 +24,18 @@ const ReviewItem = ({
 	auth,
 	deleteComment
 }) => {
+	// const getRatingTotal = rate =>
+	// 	rate?.reduce((amount, item) => item.rating + amount, 0);
+
 	return (
 		<div className="post">
 			<div className="user-profile-post">
+				{/* <Rating
+					name="read-only"
+					value={getRatingTotal(rating)}
+					readOnly
+					precision={0.5}
+				/> */}
 				<div className="review-top">
 					<Link to={`/profile/${user}`}>
 						<img

@@ -19,19 +19,33 @@ const ShopPage = ({
 		getPost(match.params.id);
 		// eslint-disable-next-line
 	}, [getPost]);
+	// console.log("loading page " + post.reviews);
 
+	// const getRatingTotal = rate =>
+	// 	rate?.reduce((amount, item) => item.rating + amount, 0);
+	// // console.log(post.reviews);
+	// if (post) {
+	// 	console.log(
+	// 		"rating total: " + getRatingTotal(post.reviews) / post.reviews.length
+	// 	);
+	// 	// console.log(post.reviews.length);
+	// }
 	return loading || post === null ? (
 		<Spinner />
 	) : (
 		<div className="main-wrap">
 			<div className="col1">
 				<ShopBanner post={post} review={post.reviews} />
+				{/* {getRatingTotal(post.reviews.rating)} */}
+
 				{/* {post.reviews.map(review => (
 					<StarTotal review={review} />
 				))} */}
-				{post.reviews.map(review => (
+				{/* {post.reviews.map(review => (
 					<StarTotal review={review} />
-				))}
+				))} */}
+
+				{/* <StarTotal review={post} /> */}
 			</div>
 			<div className="col2">
 				{isAuthenticated ? (
