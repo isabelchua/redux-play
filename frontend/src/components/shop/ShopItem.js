@@ -3,13 +3,29 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { deletePost } from "../../actions/post";
+import StarTotal from "../review/StarTotal";
+import Spinner from "../layout/Spinner";
 
 const ShopItem = ({
 	deletePost,
 	auth,
-	post: { _id, shopname, name, avatar, user, reviews, date, address, image }
+	post: {
+		post,
+		_id,
+		shopname,
+		name,
+		avatar,
+		user,
+		reviews,
+		date,
+		address,
+		image,
+		loading
+	}
 }) => {
-	return (
+	return loading || post === null ? (
+		<Spinner />
+	) : (
 		<Link to={`/posts/${_id}`} className="shop-card">
 			<div className="card">
 				<h3>{shopname}</h3>
@@ -24,6 +40,7 @@ const ShopItem = ({
 						? "1 Review"
 						: "Not Yet Reviewed"}
 				</span>
+				{/* <StarTotal review={post} /> */}
 
 				{auth.user && !auth.loading && user === auth.user._id && (
 					<p className="date">You created this Shop</p>

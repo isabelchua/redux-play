@@ -149,6 +149,7 @@ textarea:focus {
 		border-radius: $curve;
 
 		img {
+			object-fit: cover;
 			height: 200px;
 			width: 100%;
 			border-radius: $curve;
@@ -215,6 +216,7 @@ textarea:focus {
 			}
 
 			img {
+				object-fit: cover;
 				height: 220px;
 				width: 250px;
 				border-radius: $curve;
